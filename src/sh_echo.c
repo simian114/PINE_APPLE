@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:40:38 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/17 23:18:14 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/18 02:03:13 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,7 @@ void sh_echo(char **args, int fd)
 			ft_putchar_fd(' ', fd);
 		else if (i == argc - 1 && option_n == 0)
 			ft_putchar_fd('\n', fd);
-		else if (i == argc - 1 && option_n == 1 && fd == 1)
-			ft_putchar_fd('%', 1);
+		// else if (i == argc - 1 && option_n == 1 && fd == 1)
+		// 	ft_putstr_fd("%\n", 1);
 	}
 }
-
-// "" 남아있게 바꿔서, 이거 변환해서 echo하도록 수정해야함.

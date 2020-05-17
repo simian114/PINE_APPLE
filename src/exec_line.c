@@ -6,35 +6,30 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 01:32:36 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/18 01:59:03 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
 
-static void	command_switch(char **args, t_list *envs, char **envp)
+static void	fork_cmd_switch(char **args, t_list *envs, char **envp)
 {
-	int fd = 1;
-	if (is_command(args[0], "exit"))
-		exit(0);
-	else if (is_command(args[0], "echo"))
+	int fd = 1; // 확정되면 없애자.
+
+	if (is_command(*args, "echo"))
 		sh_echo(args + 1, fd);
-	else if (is_command(args[0], "pwd"))
+	else if (is_command(*args, "pwd"))
 		sh_pwd(fd);
-	else if (is_command(args[0], "cd"))
-		sh_cd(args, envs);
-	else if (is_command(args[0], "env"))
+	else if (is_command(*args, "env"))
 		sh_env(envs, fd);
-	else if (is_command(args[0], "export"))
-		sh_export(args + 1, envs);
-	else if (is_command(args[0], "unset"))
-		sh_unset(args + 1, envs);
-	else if (is_command(args[0], "ls"))
+	else if (is_command(*args, "export"))
+		sh_env(envs, fd);
+	else if (is_command(*args, "ls"))
 		sh_ls(fd);
-	else if (is_command(args[0], "clear"))
+	else if (is_command(*args, "clear"))
 		sh_clear(fd);
-	else if (ft_strncmp(args[0], "./", 2) == 0)
+	else if (ft_strncmp(*args, "./", 2) == 0)
 		sh_exec(args[0], envp);
 	else
 	{
@@ -67,38 +62,29 @@ int check_redirection(char **cmd, int *fd_file)
 
 }
 
-int cmd_switch(char **cmd)
+int cmd_switch(char **cmd, t_list *envs)
 {
 	int ret;
 
-	ret = 0;
+	ret = 1;
 	if (is_same(*cmd, "exit"))
-	{
-		
-	}
+		exit(0);
 	else if (is_same(*cmd, "cd"))
-	{
-
-	}
-	else if (is_same(*cmd, "export") && !*(cmd + 1))
-	{
-
-	}
+		sh_cd(cmd, envs);
+	else if (is_same(*cmd, "export") && *(cmd + 1))
+		sh_export(cmd + 1, envs);
 	else if (is_same(*cmd, "unset"))
-	{
-
-	}
+		sh_unset(cmd + 1, envs);
 	else
-		ret = 1;
+		ret = 0;
 	return (ret);
-
 }
 
 void exec_process(char ***cmd, t_list *envs, char **envp)
 {
+	int fdd;
 	int fd[2];
 	pid_t pid;
-	int fdd;
 	int redirection;
 	int fd_file;
 	int status;
@@ -106,37 +92,39 @@ void exec_process(char ***cmd, t_list *envs, char **envp)
 	fdd = 0;
 	while (*cmd)
 	{
-		
-		pipe(fd);
-		if ((pid = fork()) == -1)
-			ft_putstr_fd("pid error.\n", 2);
-		else if (pid == 0)
+		if (!cmd_switch(*cmd, envs))
 		{
-			dup2(fdd, 0);
-			if (*(cmd + 1))
-				dup2(fd[1], 1);
-			redirection = check_redirection(*cmd, &fd_file);
-			if (fd_file < 0)
+			pipe(fd);
+			if ((pid = fork()) == -1)
+				ft_putstr_fd("pid error.\n", 2);
+			else if (pid == 0)
 			{
-				ft_putstr_fd("minishell: ", 2);
-				ft_putendl_fd(strerror(errno), 2);
+				dup2(fdd, 0);
+				if (*(cmd + 1))
+					dup2(fd[1], 1);
+				redirection = check_redirection(*cmd, &fd_file);
+				if (fd_file < 0)
+				{
+					ft_putstr_fd("minishell: ", 2);
+					ft_putendl_fd(strerror(errno), 2);
+					exit(1);
+				}
+				else if ((redirection == -1 || redirection == -2) && !*(cmd + 1))
+					dup2(fd_file, 1);
+				else if (redirection == -3)
+					dup2(fd_file, 0);
+				close(fd[0]);
+				fork_cmd_switch(*cmd, envs, envp);
 				exit(1);
 			}
-			else if ((redirection == -1 || redirection == -2) && !*(cmd + 1))
-				dup2(fd_file, 1);
-			else if (redirection == -3)
-				dup2(fd_file, 0);
-			close(fd[0]);
-			command_switch(*cmd, envs, envp);
-			exit(1);
+			else
+			{
+				wait(&status);
+				close(fd[1]);
+				fdd = fd[0];
+			}
 		}
-		else
-		{
-			wait(&status);
-			close(fd[1]);
-			fdd = fd[0];
-			cmd++;
-		}
+		cmd++;
 	}
 }
 
