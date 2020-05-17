@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_command.c                                     :+:      :+:    :+:   */
+/*   exec_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 00:55:00 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/18 01:32:36 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,46 @@ int check_redirection(char **cmd, int *fd_file)
 
 }
 
-void exec_cmd(char ***cmd, t_list *envs, char **envp)
+int cmd_switch(char **cmd)
+{
+	int ret;
+
+	ret = 0;
+	if (is_same(*cmd, "exit"))
+	{
+		
+	}
+	else if (is_same(*cmd, "cd"))
+	{
+
+	}
+	else if (is_same(*cmd, "export") && !*(cmd + 1))
+	{
+
+	}
+	else if (is_same(*cmd, "unset"))
+	{
+
+	}
+	else
+		ret = 1;
+	return (ret);
+
+}
+
+void exec_process(char ***cmd, t_list *envs, char **envp)
 {
 	int fd[2];
 	pid_t pid;
 	int fdd;
-	int status;
-
-	int fd_file;
 	int redirection;
+	int fd_file;
+	int status;
 
 	fdd = 0;
 	while (*cmd)
 	{
+		
 		pipe(fd);
 		if ((pid = fork()) == -1)
 			ft_putstr_fd("pid error.\n", 2);
@@ -113,20 +140,19 @@ void exec_cmd(char ***cmd, t_list *envs, char **envp)
 	}
 }
 
-void		exec_command(char *line, t_list *envs, char **envp)
+void		exec_line(char *line, t_list *envs, char **envp)
 {
 	char	**semicolon;
 	char	**semicolon_mover;
+	char	**args;
+	char	***cmds;
 
 	semicolon = semicolon_split(line);
 	semicolon_mover = semicolon;
 	while (*semicolon_mover)
 	{
-		char **args;
-		char ***cmd;
-
 		args = get_args(*semicolon_mover, envs);
-		cmd = pipe_split(args);
+		cmds = pipe_split(args);
 
 		// // 출력 테스트
 //		int test;
@@ -142,7 +168,9 @@ void		exec_command(char *line, t_list *envs, char **envp)
 //			cmd++;
 //		}
 
-		exec_cmd(cmd, envs, envp);
+		exec_process(cmds, envs, envp);
+		double_char_free(&args);
+		// triple_char_free(&cmds);
 		semicolon_mover++;
 	}
 	double_char_free(&semicolon);

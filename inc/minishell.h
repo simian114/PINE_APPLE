@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:29:52 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/17 22:47:26 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/18 01:15:33 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int				ft_max(int a, int b);
 int				is_same(char *a, char *b);
 int				is_command(char *a, char *b);
 void			print_commandline();
-// char			**get_args(char *line, char *command);
 void			sh_pwd(int fd);
 void			sigint_handle();
 void			sigquit_handle();
@@ -53,7 +52,7 @@ void			sh_exec(char *command, char **envp);
 void			sigint_handle();
 void			sigquit_handle();
 void			double_char_free(char ***str);
-void			exec_command(char *line, t_list *envs, char **envp);
+void			exec_line(char *line, t_list *envs, char **envp);
 void			redirection_split(char *mover, char **command, int *fd);
 char			**semicolon_split(char *line);
 int				get_argc(char **args);

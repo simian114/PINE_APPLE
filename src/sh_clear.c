@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sh_clear.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanam <sanam@studenr.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 22:42:45 by sanam             #+#    #+#             */
-/*   Updated: 2020/05/17 22:47:48 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/18 01:20:41 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void			sh_clear(int fd)
+void	sh_clear(int fd)
 {
 	write(fd, "\33[H\33[2J", 7);
 	exit(0);
