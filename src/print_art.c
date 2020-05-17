@@ -6,7 +6,7 @@
 /*   By: sanam <sanam@studenr.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 22:11:05 by sanam             #+#    #+#             */
-/*   Updated: 2020/05/17 22:37:42 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/17 23:14:36 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void		print_art(void)
 	char	*line;
 	char	*temp;
 
-	fd = open("art", O_RDONLY);
+	fd = open("config/art", O_RDONLY);
 	while (get_next_line(fd, &line))
 	{
 		temp = line;
-		line = ft_strjoin("\033[46m", line);
+		line = ft_strjoin("\033[36m\033[36m", line);
 		ft_putendl_fd(line, STDOUT_FILENO);
 		free(temp);
 		free(line);

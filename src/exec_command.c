@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/17 22:48:38 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/17 23:12:16 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,19 +148,18 @@ void		exec_command(char *line, t_list *envs, char **envp)
 		cmd = pipe_split(args);
 
 		// // 출력 테스트
-		// int test;
-		// while (*cmd)
-		// {
-		// 	test = 0;
-		// 	while (**cmd)
-		// 	{
-		// 		printf("%d: %s\n", test, **cmd);
-		// 		(*cmd)++;
-		// 		test++;
-		// 	}
-		// 	cmd++;
-		// }
-
+//		int test;
+//		while (*cmd)
+//		{
+//			test = 0;
+//			while (**cmd)
+//			{
+//				printf("%d: %s\n", test, **cmd);
+//				(*cmd)++;
+//				test++;
+//			}
+//			cmd++;
+//		}
 		exec_cmd(cmd, envs, envp); // 아직 정리도 완성도 X. 나중에...
 		semicolon_mover++;
 	}
