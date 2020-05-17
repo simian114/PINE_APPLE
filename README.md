@@ -1,6 +1,6 @@
 ### :pineapple: PINE APPLE !!!
 -----
-[GIF](GIF.gif)
+![GIF](GIF.gif)
 -----
 ##### 2020. 05. 17.
 
