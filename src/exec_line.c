@@ -6,16 +6,16 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 01:59:03 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/18 02:27:36 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
 
-static void	fork_cmd_switch(char **args, t_list *envs, char **envp)
+static void	fork_cmd_switch(char **args, t_list *envs, char **envp, int fd)
 {
-	int fd = 1; // 확정되면 없애자.
+	// int fd = 1; // 확정되면 없애자.
 
 	if (is_command(*args, "echo"))
 		sh_echo(args + 1, fd);
@@ -114,7 +114,7 @@ void exec_process(char ***cmd, t_list *envs, char **envp)
 				else if (redirection == -3)
 					dup2(fd_file, 0);
 				close(fd[0]);
-				fork_cmd_switch(*cmd, envs, envp);
+				fork_cmd_switch(*cmd, envs, envp, 1);
 				exit(1);
 			}
 			else
@@ -122,6 +122,8 @@ void exec_process(char ***cmd, t_list *envs, char **envp)
 				wait(&status);
 				close(fd[1]);
 				fdd = fd[0];
+				// if (!*(cmd + 1) && is_same(**cmd, "echo") && is_same(*(*cmd + 1), "-n"))
+					// ft_putstr_fd("%\n", 1);
 			}
 		}
 		cmd++;
