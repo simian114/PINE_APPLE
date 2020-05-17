@@ -6,7 +6,7 @@
 #    By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/11 21:00:54 by gmoon             #+#    #+#              #
-#    Updated: 2020/05/17 22:13:08 by sanam            ###   ########.fr        #
+#    Updated: 2020/05/17 22:47:13 by sanam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC =	env_util.c \
 		sh_ls.c \
 		sh_pwd.c \
 		sh_unset.c \
+		sh_clear.c \
 		signal.c \
 		util.c	\
 		print_art.c

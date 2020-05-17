@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/17 21:19:16 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/17 22:48:38 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void	command_switch(char **args, t_list *envs, char **envp)
 		sh_unset(args + 1, envs);
 	else if (is_command(args[0], "ls"))
 		sh_ls(fd);
+	else if (is_command(args[0], "clear"))
+		sh_clear(fd);
 	else if (ft_strncmp(args[0], "./", 2) == 0)
 		sh_exec(args[0], envp);
 	else

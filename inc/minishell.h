@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:29:52 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/17 22:13:29 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/17 22:47:26 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void			sh_env(t_list *envs, int fd);
 void			sh_export(char **args, t_list *envs);
 void			sh_unset(char **args, t_list *envs);
 void			sh_ls(int fd);
+void			sh_clear(int fd);
 int				ft_max(int a, int b);
 int				is_same(char *a, char *b);
 int				is_command(char *a, char *b);
