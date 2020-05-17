@@ -6,7 +6,7 @@
 #    By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/11 21:00:54 by gmoon             #+#    #+#              #
-#    Updated: 2020/05/17 22:47:13 by sanam            ###   ########.fr        #
+#    Updated: 2020/05/18 00:59:04 by gmoon            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,10 +21,11 @@ SRC =	env_util.c \
 		get_args.c \
 		main.c \
 		pipe.c \
+		print_art.c \
 		print_commandline.c \
-		redirection.c \
 		semicolon.c \
 		sh_cd.c \
+		sh_clear.c \
 		sh_echo.c \
 		sh_env.c \
 		sh_exec.c \
@@ -32,10 +33,8 @@ SRC =	env_util.c \
 		sh_ls.c \
 		sh_pwd.c \
 		sh_unset.c \
-		sh_clear.c \
 		signal.c \
-		util.c	\
-		print_art.c
+		util.c
 OBJ = $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 CC = gcc

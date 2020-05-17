@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 00:55:32 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/17 20:28:58 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/18 00:57:28 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int args_count(char *command)
 				command++;
 			command--;
 		}
-		else if (quote == 0 && *command == '|') // 잘 될까?
+		else if (quote == 0 && *command == '|')
 		{
 			count++;
 			while (*command == '|')
@@ -167,7 +167,6 @@ char **get_args(char *command, t_list *envs)
 	int i;
 
 	count = args_count(command);
-	// printf("%d\n", count);
 	args = (char **)malloc(sizeof(char *) * (count + 1));
 	args[count] = 0;
 	i = -1;

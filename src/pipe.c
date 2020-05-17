@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 03:20:31 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/17 20:25:29 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/18 00:57:42 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ static int get_cmd_count(char **args)
 	ret = 0;
 	while (*args)
 	{
-		// if ((**args != '|' && !*(args + 1)) ||
-		// 	(**args != '|' && **(args + 1) == '|')) // 아 이거 되게 헷갈리네.
 		if ((**args != -4 && !*(args + 1)) ||
 			(**args != -4 && **(args + 1) == -4))
 			ret++;
@@ -36,7 +34,6 @@ static int get_args_count(char **args)
 	ret = 0;
 	while (*args)
 	{
-		// if (**args == '|')
 		if (**args == -4)
 			break ;
 		ret++;
@@ -68,7 +65,7 @@ char ***pipe_split(char **args)
 			ret[i][j] = ft_strdup(*args);
 			args++;
 		}
-		args++; // 될까?
+		args++;
 	}
 	return (ret);
 }
