@@ -1,4 +1,4 @@
-## 해야할 것.
+## 해야할 것?
 [ ] signal 처리
     현재는 ctrl+\는 안먹히고, ctrl+d는 아예 구현 X.
 [ ] echo "$HOME>me" 등 특문이 들어가면 다 돼야함.
@@ -9,13 +9,16 @@
     예를 들어, echo -n test.
     원래 방법으로는 가능했는데, pipe를 쓰게되면서 이거 해결이 다시 필요.
     편법으로 위의 경우는 고칠 수 있으나, echo -n test > test | ./a.out 와 같이 실질적인 해결은 못함.
-[ ] print_art 메모리 누수.
-[ ] free_envs() 만들기.
+[ ] print_art 메모리 누수 수정.
+[ ] free_envs() 추가.
+[ ] 리다이렉션 인자를 음수로만 해놓고 split 하지 않아서, 아마 sh_exec 같은 곳에 argv로 음수 인자도 들어갈 듯?
+    확인 및 수정 필요.
+[ ] is_command 수정.
 
 ## 한 것!
 20.05.17
 [x] 따옴표 안의 명령어 처리.
-[x] command_switch 정리 및 안되는 함수 해결.
+[x] fork로 안되는 함수(cd, export, unset, exit ...) 처리.
 
 20.05.18
 [x] triple_char_free() 추가.

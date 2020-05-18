@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:39:20 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 22:16:23 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/18 22:42:59 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,24 @@ char *char_to_str(char c)
 	ret[0] = c;
 	ret[1] = '\0';
 	return (ret);
+}
+
+void free_triple_char(char ****cmds)
+{
+	char ***triple_adr;
+	char **double_adr;
+
+	triple_adr = *cmds;
+	while (**cmds)
+	{
+		double_adr = **cmds;
+		while (***cmds)
+		{
+			free(***cmds);
+			(**cmds)++;
+		}
+		(*cmds)++;
+		free(double_adr);
+	}
+	free(triple_adr);
 }

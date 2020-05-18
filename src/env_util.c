@@ -6,11 +6,28 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:44:04 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/11 19:06:45 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/18 22:49:54 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_list *make_envs(char **envp)
+{
+	t_list *envs;
+	t_env *env;
+
+	envs = 0;
+	while (*envp)
+	{
+		env = (t_env *)malloc(sizeof(t_env));
+		env->key = get_key(*envp);
+		env->value = get_value(*envp);
+		ft_lstadd_back(&envs, ft_lstnew(env));
+		envp++;
+	}
+	return (envs);
+}
 
 char *get_key(char *str)
 {
@@ -41,23 +58,6 @@ char *get_value(char *str)
 	value[len] = '\0';
 	value = ft_memcpy(value, str, len);
 	return (value);
-}
-
-t_list *make_envs(char **envp)
-{
-	t_list *envs;
-	t_env *env;
-
-	envs = 0;
-	while (*envp)
-	{
-		env = (t_env *)malloc(sizeof(t_env));
-		env->key = get_key(*envp);
-		env->value = get_value(*envp);
-		ft_lstadd_back(&envs, ft_lstnew(env));
-		envp++;
-	}
-	return (envs);
 }
 
 char *find_value(t_list *envs, char *key)
