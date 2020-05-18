@@ -6,15 +6,15 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 03:20:31 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 00:57:42 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/19 05:44:30 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int get_cmd_count(char **args)
+static int	get_cmd_count(char **args)
 {
-	int ret;
+	int	ret;
 
 	ret = 0;
 	while (*args)
@@ -27,9 +27,9 @@ static int get_cmd_count(char **args)
 	return (ret);
 }
 
-static int get_args_count(char **args)
+static int	get_args_count(char **args)
 {
-	int ret;
+	int	ret;
 
 	ret = 0;
 	while (*args)
@@ -42,13 +42,13 @@ static int get_args_count(char **args)
 	return (ret);
 }
 
-char ***pipe_split(char **args)
+char		***pipe_split(char **args)
 {
-	char ***ret;
-	int cmd_count;
-	int i;
-	int args_count;
-	int j;
+	char	***ret;
+	int		cmd_count;
+	int		i;
+	int		args_count;
+	int		j;
 
 	cmd_count = get_cmd_count(args);
 	ret = (char ***)malloc(sizeof(char **) * (cmd_count + 1));

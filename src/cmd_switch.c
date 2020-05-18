@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 22:44:14 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 23:11:03 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/19 05:43:24 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int		cmd_switch(char **cmd, t_list *envs)
 
 void	fork_cmd_switch(char **cmd, t_list *envs, char **envp, int fd)
 {
-	// int fd = 1; // 확정되면 없애자. 아마 없애게 될 듯?
-
 	if (is_same(*cmd, "echo"))
 		sh_echo(cmd + 1, fd);
 	else if (is_same(*cmd, "pwd"))

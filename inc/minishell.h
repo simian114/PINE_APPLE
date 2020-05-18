@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:29:52 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 01:44:40 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/19 05:28:53 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,12 @@ char			*find_value(t_list *envs, char *key);
 */
 void			free_double_char(char ***str);
 void			free_triple_char(char ****cmds);
+void			del(void *content);
 
 /*
 ** util.c
 */
+int				get_line(char **line);
 int				ft_max(int a, int b);
 int				is_same(char *a, char *b);
 int				get_argc(char **args);

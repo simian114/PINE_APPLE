@@ -6,16 +6,16 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 23:52:06 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/15 22:43:29 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/19 05:46:35 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int command_count(char *line)
+static int	command_count(char *line)
 {
-	int count;
-	int quote;
+	int	count;
+	int	quote;
 
 	count = 1;
 	quote = 0;
@@ -32,11 +32,11 @@ static int command_count(char *line)
 	return (count);
 }
 
-static int command_len(char *line)
+static int	command_len(char *line)
 {
-	int len;
-	int quote;
-	
+	int	len;
+	int	quote;
+
 	len = 0;
 	quote = 0;
 	while (*line)
@@ -53,12 +53,12 @@ static int command_len(char *line)
 	return (len);
 }
 
-char **semicolon_split(char *line)
+char		**semicolon_split(char *line)
 {
-	char **commands;
-	int count;
-	int i;
-	int len;
+	char	**commands;
+	int		count;
+	int		i;
+	int		len;
 
 	count = command_count(line);
 	commands = (char **)malloc(sizeof(char *) * (count + 1));

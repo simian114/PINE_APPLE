@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 23:13:15 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 23:16:42 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/19 05:26:20 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,14 @@ void free_triple_char(char ****cmds)
 		free(double_adr);
 	}
 	free(triple_adr);
+}
+
+void del(void *content)
+{
+	t_env *temp;
+
+	temp = (t_env *)content;
+	free(temp->key);
+	free(temp->value);
+	free(temp);
 }

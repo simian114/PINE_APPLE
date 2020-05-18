@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 01:46:16 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/19 05:21:23 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static int check_redirection(char **cmd, int *fd_file)
 		*fd_file = open(*(cmd + 1), O_WRONLY | O_CREAT | O_APPEND , 0744);
 	else if (ret == -3)
 		*fd_file = open(*(cmd + 1), O_RDONLY);
+	else
+		*fd_file = 1;
 	return (ret);
 }
 

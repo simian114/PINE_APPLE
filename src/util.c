@@ -6,11 +6,32 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:39:20 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 23:13:58 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/19 05:28:38 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	get_line(char **line)
+{
+	char	buf[2];
+	char	*temp;
+
+	ft_bzero(buf, 2);
+	*line = ft_strdup("");
+	while (*buf != '\n')
+	{
+		while (read(0, buf, 1) && *buf != '\n')
+		{
+			temp = *line;
+			*line = ft_strjoin(*line, buf);
+			free(temp);
+		}
+		if (ft_strlen(*line) == 0 && *buf != '\n')
+			return(0);
+	}
+	return (1);
+}
 
 int ft_max(int a, int b)
 {
