@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:29:52 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 23:17:25 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/19 01:44:40 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void			print_art(void);
 /*
 ** print_commandline.c
 */
-void			print_commandline(void);
+int				print_commandline(void);
 
 /*
 ** semicolon.c

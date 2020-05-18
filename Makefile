@@ -6,7 +6,7 @@
 #    By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/11 21:00:54 by gmoon             #+#    #+#              #
-#    Updated: 2020/05/18 23:06:55 by gmoon            ###   ########.fr        #
+#    Updated: 2020/05/18 23:55:07 by sanam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ INCDIR = ./inc
 OBJDIR = ./obj
 
 SRC =	cmd_switch.c \
-		env_util.c \
 		exec_line.c \
 		get_args.c \
 		main.c \
@@ -35,7 +34,9 @@ SRC =	cmd_switch.c \
 		sh_pwd.c \
 		sh_unset.c \
 		signal.c \
-		util.c
+		util_env.c \
+		util.c	\
+		util_free.c
 OBJ = $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 CC = gcc
