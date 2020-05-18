@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/06 05:13:08 by gmoon             #+#    #+#             */
-/*   Updated: 2020/04/13 13:35:15 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/19 01:13:21 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define BUFFER_SIZE 5
+# define BUFFER_SIZE 1000
 
 int		is_contain_lf(char *buf);
 int		strlen_lf(char *str);
