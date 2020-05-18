@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 22:16:33 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/18 22:31:10 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	fork_cmd_switch(char **args, t_list *envs, char **envp, int fd)
 	else if (is_command(*args, "clear"))
 		sh_clear(fd);
 	else if (ft_strncmp(*args, "./", 2) == 0)
-		sh_exec(args[0], envp);
+		sh_exec(args, envp);
 	else
 	{
 		ft_putstr_fd("moong_shell: command not found: ", 1);

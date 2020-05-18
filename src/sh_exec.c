@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 02:20:53 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 22:16:35 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/18 22:33:07 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,16 @@ static int exec_fork(char **argv, char **envp)
 		if (execve(argv[0] + 2, argv, envp) == -1)
 			return (-1);
 	}
-	else
+	else if (pid > 0)
 		wait(0);
 	return (0);
 }
 
-void sh_exec(char *command, char **envp)
+void sh_exec(char **args, char **envp)
 {
-	char **argv;
-
-	argv = ft_split(command, ' ');
-	if (exec_fork(argv, envp) == -1)
+	if (exec_fork(args, envp) == -1)
 	{
-		ft_putstr_fd("moong_shell: no such file or directory: ", 1);
-		ft_putendl_fd(argv[0], 1);
+		ft_putstr_fd("moong_shell: no such file or directory: ", 2);
+		ft_putendl_fd(*(args + 1), 1); // 에러 처리 통일 가능할 듯.
 	}
-	free_double_char(&argv);
 }
