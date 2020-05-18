@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 16:17:40 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/18 17:28:16 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int check_redirection(char **cmd, int *fd_file)
 
 }
 
-int cmd_switch(char **cmd, t_list *envs, int *status)
+int cmd_switch(char **cmd, t_list *envs)
 {
 	int ret;
 
@@ -71,7 +71,7 @@ int cmd_switch(char **cmd, t_list *envs, int *status)
 	if (is_same(*cmd, "exit"))
 		exit(0);
 	else if (is_same(*cmd, "cd"))
-		sh_cd(cmd, envs, status);
+		sh_cd(cmd, envs);
 	else if (is_same(*cmd, "export") && *(cmd + 1))
 		sh_export(cmd + 1, envs);
 	else if (is_same(*cmd, "unset"))
@@ -81,7 +81,7 @@ int cmd_switch(char **cmd, t_list *envs, int *status)
 	return (ret);
 }
 
-void exec_process(char ***cmd, t_list *envs, char **envp, int *status)
+void exec_process(char ***cmd, t_list *envs, char **envp)
 {
 	int fdd;
 	int fd[2];
@@ -92,7 +92,7 @@ void exec_process(char ***cmd, t_list *envs, char **envp, int *status)
 	fdd = 0;
 	while (*cmd)
 	{
-		if (!cmd_switch(*cmd, envs, status))
+		if (!cmd_switch(*cmd, envs))
 		{
 			pipe(fd);
 			if ((pid = fork()) == -1)
@@ -119,8 +119,7 @@ void exec_process(char ***cmd, t_list *envs, char **envp, int *status)
 			}
 			else
 			{
-				wait(status);
-				WEXITSTATUS(*status);
+				wait(NULL);
 				close(fd[1]);
 				fdd = fd[0];
 				// if (!*(cmd + 1) && is_same(**cmd, "echo") && is_same(*(*cmd + 1), "-n"))
@@ -131,9 +130,6 @@ void exec_process(char ***cmd, t_list *envs, char **envp, int *status)
 	}
 }
 
-<<<<<<< HEAD
-void		exec_line(char *line, t_list *envs, char **envp, int *status)
-=======
 void triple_char_free(char ****cmds)
 {
 	char ***triple_adr;
@@ -155,7 +151,6 @@ void triple_char_free(char ****cmds)
 }
 
 void		exec_line(char *line, t_list *envs, char **envp)
->>>>>>> 8e0c7e4a7a3f9e7180331d0cf7a9ad00c271c7ba
 {
 	char	**semicolon;
 	char	**semicolon_mover;
@@ -182,11 +177,6 @@ void		exec_line(char *line, t_list *envs, char **envp)
 //			}
 //			cmd++;
 //		}
-
-<<<<<<< HEAD
-		exec_process(cmds, envs, envp, status);
-=======
->>>>>>> 8e0c7e4a7a3f9e7180331d0cf7a9ad00c271c7ba
 		double_char_free(&args);
 		exec_process(cmds, envs, envp);
 		triple_char_free(&cmds);
