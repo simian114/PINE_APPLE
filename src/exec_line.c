@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 02:27:36 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/18 14:23:27 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	fork_cmd_switch(char **args, t_list *envs, char **envp, int fd)
 	{
 		ft_putstr_fd("moong_shell: command not found: ", 1);
 		ft_putendl_fd(args[0], 1);
+		exit(1);
 	}
 }
 
@@ -62,7 +63,7 @@ int check_redirection(char **cmd, int *fd_file)
 
 }
 
-int cmd_switch(char **cmd, t_list *envs)
+int cmd_switch(char **cmd, t_list *envs, int *status)
 {
 	int ret;
 
@@ -70,7 +71,7 @@ int cmd_switch(char **cmd, t_list *envs)
 	if (is_same(*cmd, "exit"))
 		exit(0);
 	else if (is_same(*cmd, "cd"))
-		sh_cd(cmd, envs);
+		sh_cd(cmd, envs, status);
 	else if (is_same(*cmd, "export") && *(cmd + 1))
 		sh_export(cmd + 1, envs);
 	else if (is_same(*cmd, "unset"))
@@ -80,19 +81,18 @@ int cmd_switch(char **cmd, t_list *envs)
 	return (ret);
 }
 
-void exec_process(char ***cmd, t_list *envs, char **envp)
+void exec_process(char ***cmd, t_list *envs, char **envp, int *status)
 {
 	int fdd;
 	int fd[2];
 	pid_t pid;
 	int redirection;
 	int fd_file;
-	int status;
 
 	fdd = 0;
 	while (*cmd)
 	{
-		if (!cmd_switch(*cmd, envs))
+		if (!cmd_switch(*cmd, envs, status))
 		{
 			pipe(fd);
 			if ((pid = fork()) == -1)
@@ -115,11 +115,12 @@ void exec_process(char ***cmd, t_list *envs, char **envp)
 					dup2(fd_file, 0);
 				close(fd[0]);
 				fork_cmd_switch(*cmd, envs, envp, 1);
-				exit(1);
+				exit(0);
 			}
 			else
 			{
-				wait(&status);
+				wait(status);
+				WEXITSTATUS(*status);
 				close(fd[1]);
 				fdd = fd[0];
 				// if (!*(cmd + 1) && is_same(**cmd, "echo") && is_same(*(*cmd + 1), "-n"))
@@ -130,7 +131,7 @@ void exec_process(char ***cmd, t_list *envs, char **envp)
 	}
 }
 
-void		exec_line(char *line, t_list *envs, char **envp)
+void		exec_line(char *line, t_list *envs, char **envp, int *status)
 {
 	char	**semicolon;
 	char	**semicolon_mover;
@@ -158,7 +159,7 @@ void		exec_line(char *line, t_list *envs, char **envp)
 //			cmd++;
 //		}
 
-		exec_process(cmds, envs, envp);
+		exec_process(cmds, envs, envp, status);
 		double_char_free(&args);
 		// triple_char_free(&cmds);
 		semicolon_mover++;
