@@ -14,6 +14,7 @@
 [ ] 리다이렉션 인자를 음수로만 해놓고 split 하지 않아서, 아마 sh_exec 같은 곳에 argv로 음수 인자도 들어갈 듯?
     확인 및 수정 필요.
 [ ] is_command 수정.
+[ ] `pwd n`의 "pwd: too many arguments"처럼, 추가 오류 처리.
 
 ## 한 것!
 20.05.17

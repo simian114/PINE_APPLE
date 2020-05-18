@@ -1,27 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_env.c                                           :+:      :+:    :+:   */
+/*   util_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/11 18:41:33 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 23:04:19 by gmoon            ###   ########.fr       */
+/*   Created: 2020/05/18 23:13:15 by gmoon             #+#    #+#             */
+/*   Updated: 2020/05/18 23:16:42 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void sh_env(t_list *envs, int fd)
+void free_double_char(char ***str)
 {
-	t_list *curr;
+	char **str_adr;
 
-	curr = envs;
-	while (curr)
+	str_adr = *str;
+	while (**str)
 	{
-		ft_putstr_fd(((t_env *)curr->content)->key, fd);
-		ft_putstr_fd("=", fd);
-		ft_putendl_fd(((t_env *)curr->content)->value, fd);
-		curr = curr->next;
+		free(**str);
+		(*str)++;
 	}
+	free(str_adr);
+}
+
+void free_triple_char(char ****cmds)
+{
+	char ***triple_adr;
+	char **double_adr;
+
+	triple_adr = *cmds;
+	while (**cmds)
+	{
+		double_adr = **cmds;
+		while (***cmds)
+		{
+			free(***cmds);
+			(**cmds)++;
+		}
+		(*cmds)++;
+		free(double_adr);
+	}
+	free(triple_adr);
 }

@@ -6,7 +6,7 @@
 #    By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/11 21:00:54 by gmoon             #+#    #+#              #
-#    Updated: 2020/05/18 01:16:49 by gmoon            ###   ########.fr        #
+#    Updated: 2020/05/18 23:06:55 by gmoon            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ SRCDIR = ./src
 INCDIR = ./inc
 OBJDIR = ./obj
 
-SRC =	env_util.c \
+SRC =	cmd_switch.c \
+		env_util.c \
 		exec_line.c \
 		get_args.c \
 		main.c \

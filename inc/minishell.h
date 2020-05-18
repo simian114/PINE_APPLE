@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:29:52 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 22:57:31 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/18 23:17:25 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,6 @@ int				cmd_switch(char **cmd, t_list *envs);
 void			exec_line(char *line, t_list *envs, char **envp);
 
 /*
-** env_util.c
-*/
-t_list			*make_envs(char **envp);
-char			*get_key(char *str);
-char			*get_value(char *str);
-char			*find_value(t_list *envs, char *key);
-
-/*
 ** get_args.c
 */
 char			**get_args(char *command, t_list *envs);
@@ -66,7 +58,7 @@ void			print_art(void);
 /*
 ** print_commandline.c
 */
-void			print_commandline();
+void			print_commandline(void);
 
 /*
 ** semicolon.c
@@ -74,34 +66,44 @@ void			print_commandline();
 char			**semicolon_split(char *line);
 
 /*
-** sh_cd.d
+** builtins
 */
 void			sh_cd(char **args, t_list *envs);
 void			sh_clear(int fd);
-
-
 void			sh_echo(char **args, int fd);
 void			sh_env(t_list *envs, int fd);
+void			sh_exec(char **args, char **envp);
 void			sh_export(char **args, t_list *envs);
-void			sh_unset(char **args, t_list *envs);
 void			sh_ls(int fd);
+void			sh_pwd(int fd);
+void			sh_unset(char **args, t_list *envs);
+
+/*
+** signal.c
+*/
+void			sigint_handle();
+void			sigquit_handle();
+
+/*
+** util_env.c
+*/
+t_list			*make_envs(char **envp);
+char			*get_key(char *str);
+char			*get_value(char *str);
+char			*find_value(t_list *envs, char *key);
+
+/*
+** util_free.c
+*/
+void			free_double_char(char ***str);
+void			free_triple_char(char ****cmds);
+
+/*
+** util.c
+*/
 int				ft_max(int a, int b);
 int				is_same(char *a, char *b);
-int				is_command(char *a, char *b);
-void			sh_pwd(int fd);
-void			sigint_handle();
-void			sigquit_handle();
-void			sh_exec(char **args, char **envp);
-void			sigint_handle();
-void			sigquit_handle();
-void			free_double_char(char ***str);
-void			exec_line(char *line, t_list *envs, char **envp);
-void			redirection_split(char *mover, char **command, int *fd);
 int				get_argc(char **args);
 char			*char_to_str(char c);
-
-
-
-
 
 #endif

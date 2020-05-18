@@ -6,13 +6,13 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 00:10:11 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 00:57:52 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/18 23:15:06 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		print_commandline()
+void	print_commandline(void)
 {
 	char	*cwd;
 
