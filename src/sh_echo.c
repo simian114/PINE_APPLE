@@ -6,12 +6,11 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:40:38 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 06:01:59 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/19 06:58:17 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void sh_echo(char **args, int fd)
 {
