@@ -6,13 +6,13 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 00:10:11 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 23:15:06 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/19 01:44:27 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_commandline(void)
+int			print_commandline(void)
 {
 	char	*cwd;
 
@@ -23,4 +23,5 @@ void	print_commandline(void)
 	ft_putstr_fd(" >> ", 1);
 	ft_putstr_fd("\033[0m", 1);
 	free(cwd);
+	return (1);
 }
