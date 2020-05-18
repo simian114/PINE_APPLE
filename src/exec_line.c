@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 14:23:27 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/18 16:17:40 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,31 @@ void exec_process(char ***cmd, t_list *envs, char **envp, int *status)
 	}
 }
 
+<<<<<<< HEAD
 void		exec_line(char *line, t_list *envs, char **envp, int *status)
+=======
+void triple_char_free(char ****cmds)
+{
+	char ***triple_adr;
+	char **double_adr;
+
+	triple_adr = *cmds;
+	while (**cmds)
+	{
+		double_adr = **cmds;
+		while (***cmds)
+		{
+			free(***cmds);
+			(**cmds)++;
+		}
+		(*cmds)++;
+		free(double_adr);
+	}
+	free(triple_adr);
+}
+
+void		exec_line(char *line, t_list *envs, char **envp)
+>>>>>>> 8e0c7e4a7a3f9e7180331d0cf7a9ad00c271c7ba
 {
 	char	**semicolon;
 	char	**semicolon_mover;
@@ -159,9 +183,13 @@ void		exec_line(char *line, t_list *envs, char **envp, int *status)
 //			cmd++;
 //		}
 
+<<<<<<< HEAD
 		exec_process(cmds, envs, envp, status);
+=======
+>>>>>>> 8e0c7e4a7a3f9e7180331d0cf7a9ad00c271c7ba
 		double_char_free(&args);
-		// triple_char_free(&cmds);
+		exec_process(cmds, envs, envp);
+		triple_char_free(&cmds);
 		semicolon_mover++;
 	}
 	double_char_free(&semicolon);
