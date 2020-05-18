@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 02:27:36 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/18 15:32:05 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,26 @@ void exec_process(char ***cmd, t_list *envs, char **envp)
 	}
 }
 
+void triple_char_free(char ****cmds)
+{
+	char ***triple_adr;
+	char **double_adr;
+
+	triple_adr = *cmds;
+	while (**cmds)
+	{
+		double_adr = **cmds;
+		while (***cmds)
+		{
+			free(***cmds);
+			(**cmds)++;
+		}
+		(*cmds)++;
+		free(double_adr);
+	}
+	free(triple_adr);
+}
+
 void		exec_line(char *line, t_list *envs, char **envp)
 {
 	char	**semicolon;
@@ -158,9 +178,9 @@ void		exec_line(char *line, t_list *envs, char **envp)
 //			cmd++;
 //		}
 
-		exec_process(cmds, envs, envp);
 		double_char_free(&args);
-		// triple_char_free(&cmds);
+		exec_process(cmds, envs, envp);
+		triple_char_free(&cmds);
 		semicolon_mover++;
 	}
 	double_char_free(&semicolon);
