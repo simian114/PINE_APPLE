@@ -2,7 +2,7 @@
     현재는 ctrl+\는 안먹히고, ctrl+d는 아예 구현 X.
 [x] 따옴표 안의 명령어 처리.
 [x] command_switch 정리 및 안되는 함수 해결.
-[ ] echo "$HOME>me" 등 특문이 들어가면 다 돼야함.
+[ ] echo "$HOME>me" 등 특문이 들어가면 다 돼야함. zzzz
 [ ] 에러 처리 통일.
 [ ] $? 구현.
 [ ] triple_char_free() 구현.
