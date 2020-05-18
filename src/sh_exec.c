@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 02:20:53 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 01:59:14 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/18 22:16:35 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ void sh_exec(char *command, char **envp)
 		ft_putstr_fd("moong_shell: no such file or directory: ", 1);
 		ft_putendl_fd(argv[0], 1);
 	}
-	double_char_free(&argv);
+	free_double_char(&argv);
 }

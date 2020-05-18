@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:39:20 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/17 23:21:31 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/18 22:16:23 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int is_command(char *a, char *b)
 	return (ret);
 }
 
-void double_char_free(char ***str)
+void free_double_char(char ***str)
 {
 	char **str_adr;
 

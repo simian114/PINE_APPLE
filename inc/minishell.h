@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:29:52 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 01:15:33 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/18 22:16:36 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void			sigquit_handle();
 void			sh_exec(char *command, char **envp);
 void			sigint_handle();
 void			sigquit_handle();
-void			double_char_free(char ***str);
+void			free_double_char(char ***str);
 void			exec_line(char *line, t_list *envs, char **envp);
 void			redirection_split(char *mover, char **command, int *fd);
 char			**semicolon_split(char *line);
