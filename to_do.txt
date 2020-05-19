@@ -1,7 +1,5 @@
-## to_do
-[ ] echo "$HOME>me" 등 특문이 들어가면 다 돼야함. 아직 규칙 파악 x.
+## to_do [ ] echo "$HOME>me" 등 특문이 들어가면 다 돼야함. 아직 규칙 파악 x.
 [ ] 에러 처리.
-[ ] $? 구현.
 [ ] 긴 함수 정리.
 [ ] 마지막에 개행이 없는 경우, %가 붙어야 하는데 어떻게 하지? 줄바꿈이 있는지 확인하는 방법이 있나?
     예를 들어, echo -n test.
@@ -10,8 +8,11 @@
 [ ] 리다이렉션 인자를 음수로만 해놓고 split 하지 않아서,
     아마 sh_exec 같은 곳에 argv로 음수 인자도 들어갈 듯?
     확인 및 수정 필요.
-[ ] `pwd n`의 "pwd: too many arguments"처럼, 추가 오류 처리.
 [ ] (makefile에 빌트인 함수들은 따로 폴더를 만들까?)
+[ ] signal 처리
+	- [x] SIGINT(ctrl + c)
+	- [ ] SIGQUIT(ctrl + \)
+
 
 ## norm
 [x] cmd_switch.c: fd 인자때문에 구조 수정 여지 있음.
@@ -35,4 +36,16 @@
 [x] is_command() 삭제 후 is_same()으로 통일.
 [x] exec_line(): valgrind 에러 수정.
 [x] envs free 추가.
-[ ] signal 처리 ... ing.
+
+20. 05. 19
+[x] cd, pwd, clear, env 에러처리
+	- cd : 몇 가지 에러 추가
+	- pwd : 인자가 2 개 이상인 경우 에러
+	- clear : 인자가 2 개 이상인 경우 에러
+	- env : 인자가 2 개 이상인 경우 에러
+[x] store_status(): exec_line 함수 마지막에 함수가 종료되면 상태를 그 상태를 저장한다.
+					기본적으로 환경변수에 key(?)를 추가하고 wstatus을 value로 넣는다.
+					env에서는 출력되지 않게 구현.
+[x] ctrl + d(EOF)
+[x] $? 구현. > export, unset 제외하고 함. ㅇ이 녀석들은 추후 에러 찾고 하면됨(아마 안해도 될듯?)
+[x] export, unset, cd 같이 fork 안하는 녀석들도 리다이렉션 처리는 해줘야함
