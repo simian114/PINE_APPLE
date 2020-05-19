@@ -6,11 +6,12 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:50:17 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 11:22:47 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/19 15:39:59 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -24,7 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, sigint_handle);
 	signal(SIGQUIT, sigquit_handle);
 	envs = make_envs(envp);
-	while (print_commandline() && get_line(&line))
+	while ((print_commandline() && get_line(&line)) || (wstatus = 0))
 		exec_line(line, envs, envp, &wstatus);
 	free(line);
 	ft_lstclear(&envs, del);

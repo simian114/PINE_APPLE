@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:29:52 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 13:07:46 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/19 16:35:15 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <errno.h>
 # include <string.h>
 # include "libft.h"
+#include <stdio.h>
 
 typedef struct	s_env
 {
@@ -39,6 +40,7 @@ int				cmd_switch(char **cmd, t_list *envs, int *wstatus);
 ** exec_line.c
 */
 void			exec_line(char *line, t_list *envs, char **envp, int *wstatus);
+int				check_redirection(char **cmd, int *fd_file);
 
 /*
 ** get_args.c
@@ -69,7 +71,7 @@ char			**semicolon_split(char *line);
 ** builtins
 */
 void			sh_cd(char **args, t_list *envs, int *wstatus);
-void			sh_clear(int fd);
+void			sh_clear(char **args, int fd);
 void			sh_echo(char **args, int fd);
 void			sh_env(char **args, t_list *envs, int fd);
 void			sh_exec(char **args, char **envp);
