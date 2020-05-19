@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:29:52 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 12:41:55 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/19 13:07:46 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,18 @@ char			**semicolon_split(char *line);
 void			sh_cd(char **args, t_list *envs, int *wstatus);
 void			sh_clear(int fd);
 void			sh_echo(char **args, int fd);
-void			sh_env(t_list *envs, int fd);
+void			sh_env(char **args, t_list *envs, int fd);
 void			sh_exec(char **args, char **envp);
 void			sh_export(char **args, t_list *envs);
 void			sh_ls(int fd);
-void			sh_pwd(int fd);
+void			sh_pwd(char **args, int fd);
 void			sh_unset(char **args, t_list *envs);
+
+/*
+** store status
+*/
+
+void			store_status(t_list *envs, int *wstatus);
 
 /*
 ** signal.c

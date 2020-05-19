@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 22:44:14 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 11:26:32 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/19 13:14:38 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,9 @@ void	fork_cmd_switch(char **cmd, t_list *envs, char **envp, int fd)
 	if (is_same(*cmd, "echo"))
 		sh_echo(cmd + 1, fd);
 	else if (is_same(*cmd, "pwd"))
-		sh_pwd(fd);
+		sh_pwd(cmd, fd);
 	else if (is_same(*cmd, "env"))
-		sh_env(envs, fd);
-	else if (is_same(*cmd, "export"))
-		sh_env(envs, fd);
+		sh_env(cmd, envs, fd);
 	else if (is_same(*cmd, "ls"))
 		sh_ls(fd);
 	else if (is_same(*cmd, "clear"))

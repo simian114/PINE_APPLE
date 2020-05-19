@@ -6,7 +6,7 @@
 #    By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/11 21:00:54 by gmoon             #+#    #+#              #
-#    Updated: 2020/05/18 23:55:07 by sanam            ###   ########.fr        #
+#    Updated: 2020/05/19 13:07:13 by sanam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRC =	cmd_switch.c \
 		signal.c \
 		util_env.c \
 		util.c	\
-		util_free.c
+		util_free.c \
+		store_status.c
 OBJ = $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 CC = gcc
