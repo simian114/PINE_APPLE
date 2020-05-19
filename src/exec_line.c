@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 20:51:36 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/19 22:18:29 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,27 @@ static void exec_cmds(char ***cmds, t_list *envs, char **envp, int *wstatus)
 			{
 				dup2(fdd, 0);
 				if (*(cmds + 1))
+				{
+					// printf("zz?\n");
 					dup2(fd[1], 1);
+				}
 				redirection = check_redirection(*cmds, &fd_file);
-				// printf("<%d>\n", fd_file);
 				if (fd_file < 0)
 				{
-					ft_putstr_fd("minishell: ", 2);
-					ft_putendl_fd(strerror(errno), 2);
+					ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
+					ft_putstr_fd(strerror(errno), 2);
+					ft_putstr_fd("\n", 2);
 					exit(1);
 				}
 				else if ((redirection == -1 || redirection == -2) && !*(cmds + 1))
+				{
+					// printf("%d\n", fd_file);
 					dup2(fd_file, 1);
+				}
 				else if (redirection == -3)
+				{
 					dup2(fd_file, 0);
+				}
 				close(fd[0]);
 				fork_cmd_switch(*cmds, envs, envp, 1);
 				exit(0);
@@ -83,7 +91,7 @@ static void exec_cmds(char ***cmds, t_list *envs, char **envp, int *wstatus)
 				wait(wstatus);
 				close(fd[1]);
 				fdd = fd[0];
-				// if (!*(cmd + 1) && is_same(**cmd, "echo") && is_same(*(*cmd + 1), "-n"))
+				// if (!*(cmds + 1) && is_same(**cmds, "echo") && is_same(*(*cmds + 1), "-n"))
 					// ft_putstr_fd("%\n", 1);
 			}
 		}
