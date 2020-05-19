@@ -47,9 +47,10 @@
 					기본적으로 환경변수에 key(?)를 추가하고 wstatus을 value로 넣는다.
 					env에서는 출력되지 않게 구현.
 [x] ctrl + d(EOF)
-[x] $? 구현. > export, unset 제외하고 함. 이 녀석들은 추후 에러 찾고 하면됨(아마 안해도 될듯?)
-[x] export, unset, cd 같이 fork 안하는 녀석들도 리다이렉션 처리는 해줘야함
-[x] 그냥 echo만 해도 $?가 139인거 수정.
-[x] echo "$HOME>me" 등 특문이 들어가면 다 돼야함. 아직 규칙 파악 x.
+[x] $? 구현. > export, unset 제외하고 함. 이 녀석들은 추후 에러 찾고 추가할 것.
+[x] export, unset, cd 같이 fork 안하는 함수들도 리다이렉션 되게 수정.
 [x] 에러 처리.
-[x] `> a` 처리
+[x] 그냥 echo만 해도 $?가 139인거 수정.
+[x] echo "$HOME>me" 추가. (다른 특수문자는 아직 추가 안함)
+[x] `> a` 처리.
+[x] `echo hello > a asdf`와 같은 경우 asdf도 인자로 들어가게 수정.

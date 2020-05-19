@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 01:54:53 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/20 02:06:51 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ int check_redirection(char **cmd, int *fd_file)
 		}
 		cmd++;
 	}
-	// if (ret < 0)
-	// printf("<%s>\n", *(cmd + 1));
-	// printf("!%d!\n", ret);
-
 	if (ret == -1)
 		*fd_file = open(*(cmd + 1), O_WRONLY | O_CREAT | O_TRUNC, 0744);
 	else if (ret == -2)
@@ -41,7 +37,7 @@ int check_redirection(char **cmd, int *fd_file)
 	return (ret);
 }
 
-char **filter_cmd(char **cmd, int redirection)
+char **get_cmd(char **cmd, int redirection)
 {
 	char **ret;
 	int size;
@@ -58,7 +54,6 @@ char **filter_cmd(char **cmd, int redirection)
 		if (**cmd < 0)
 			cmd += 2;
 		ret[i] = ft_strdup(*cmd);
-		i++;
 		cmd++;
 	}
 	return (ret);
@@ -71,6 +66,7 @@ static void exec_cmds(char ***cmds, t_list *envs, char **envp, int *wstatus)
 	pid_t pid;
 	int redirection;
 	int fd_file;
+	char **cmd;
 
 	fdd = 0;
 	while (*cmds)
@@ -98,11 +94,9 @@ static void exec_cmds(char ***cmds, t_list *envs, char **envp, int *wstatus)
 				else if (redirection == -3)
 					dup2(fd_file, 0);
 				close(fd[0]);
-
-				char **cmd;
-				cmd = filter_cmd(*cmds, redirection);
+				cmd = get_cmd(*cmds, redirection);
 				fork_cmd_switch(cmd, envs, envp, 1);
-				free(cmd);
+				free_double_char(&cmd);
 				exit(0);
 			}
 			else
