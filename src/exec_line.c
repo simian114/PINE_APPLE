@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 17:04:31 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/19 20:51:36 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ int check_redirection(char **cmd, int *fd_file)
 		}
 		cmd++;
 	}
+	// if (ret < 0)
+	// printf("<%s>\n", *(cmd + 1));
+	// printf("!%d!\n", ret);
+
 	if (ret == -1)
 		*fd_file = open(*(cmd + 1), O_WRONLY | O_CREAT | O_TRUNC, 0744);
 	else if (ret == -2)
@@ -59,6 +63,7 @@ static void exec_cmds(char ***cmds, t_list *envs, char **envp, int *wstatus)
 				if (*(cmds + 1))
 					dup2(fd[1], 1);
 				redirection = check_redirection(*cmds, &fd_file);
+				// printf("<%d>\n", fd_file);
 				if (fd_file < 0)
 				{
 					ft_putstr_fd("minishell: ", 2);
@@ -93,12 +98,25 @@ void		exec_line(char *line, t_list *envs, char **envp, int *wstatus)
 	char	**args;
 	char	***cmds;
 
+	if (!envp)
+		printf("zz\n");
 	semicolon = semicolon_split(line);
 	semicolon_mover = semicolon;
 	while (*semicolon_mover)
 	{
 		args = get_args(*semicolon_mover, envs);
 		cmds = pipe_split(args);
+
+		// while (*cmds)
+		// {
+		// 	while (**cmds)
+		// 	{
+		// 		printf("[%s (%d)]\n", **cmds, ***cmds);
+		// 		(*cmds)++;
+		// 	}
+		// 	(cmds)++;
+		// }
+
 		free_double_char(&args);
 		exec_cmds(cmds, envs, envp, wstatus);
 		free_triple_char(&cmds);

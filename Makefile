@@ -6,7 +6,7 @@
 #    By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/11 21:00:54 by gmoon             #+#    #+#              #
-#    Updated: 2020/05/19 13:07:13 by sanam            ###   ########.fr        #
+#    Updated: 2020/05/19 20:05:53 by gmoon            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ fclean: clean
 re: fclean all
 
 run: $(NAME)
-	@valgrind --leak-check=full ./minishell
+	# @valgrind --leak-check=full ./minishell
+	@ ./minishell
 
 .PHONY : all bonus clean fclean re run

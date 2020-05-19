@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 00:55:32 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 14:25:04 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/19 20:52:00 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static int args_count(char *command)
 		else if (quote != 0 && *command == quote)
 			quote -= *command;
 		if (quote == 0 &&
-			(*command != ' ' && *command != '>' && *command != '|') &&
+			(*command != ' ' && *command != '>' && *command != '|' && *command != '<') &&
 			(*(command + 1) == ' ' || !*(command + 1) ||
-			*(command + 1) == '>' || *(command + 1) == '|'))
+			*(command + 1) == '>' || *(command + 1) == '|' || *(command + 1) == '<'))
 			count++;
 		else if (quote == 0 && *command == '>')
 		{
@@ -45,6 +45,13 @@ static int args_count(char *command)
 				command++;
 			command--;
 		}
+		else if (quote == 0 && *command == '<')
+		{
+			count++;
+			while (*command == '<')
+				command++;
+			command--;
+		}
 		command++;
 	}
 	return (count);
@@ -55,7 +62,8 @@ static int key_len(char *str)
 	int len;
 
 	len = 0;
-	while (*str && !(*str == ' ' || *str == '\'' || *str == '\"'))
+	while (*str &&
+		!(*str == ' ' || *str == '\'' || *str == '\"' || *str == '<' || *str == '>'))
 	{
 		str++;
 		len++;
@@ -154,7 +162,7 @@ static char *convert_arg(char **command, t_list *envs)
 			ret = ret_tmp;
 		}
 		(*command)++;
-		if (quote == 0 && (**command == ' ' || **command == '>' || **command == '|'))
+		if (quote == 0 && (**command == ' ' || **command == '>' || **command == '|' || **command == '<'))
 			break;
 	}
 	return (ret);
@@ -167,6 +175,7 @@ char **get_args(char *command, t_list *envs)
 	int i;
 
 	count = args_count(command);
+	// printf("count: %d\n", count);
 	args = (char **)malloc(sizeof(char *) * (count + 1));
 	args[count] = 0;
 	i = -1;

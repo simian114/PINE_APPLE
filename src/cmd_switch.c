@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 22:44:14 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 17:54:14 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/19 20:12:15 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int		handling_redirection(char **cmd, char **file)
 {
 	int		fd;
 
+	fd = 0;
 	while (*cmd)
 	{
 		if (**cmd < 0)
@@ -55,18 +56,16 @@ int		handling_redirection_2(int ret, int *wstatus, char *file)
 
 int		cmd_switch(char **cmd, t_list *envs, int *wstatus)
 {
-	int		ret;
 	int		temp;
 	char	*file;
 
-	ret = 1;
 	if (is_same(*cmd, "exit"))
 		exit(0);
-	else if (is_same(*cmd, "cd") || is_same(*cmd, "export") ||
-			is_same(*cmd, "unset"))
+	else if (is_same(*cmd, "cd") || is_same(*cmd, "unset") ||
+			(is_same(*cmd, "export") && *(cmd + 1) && **(cmd + 1) > 0))
 	{
 		temp = handling_redirection(cmd, &file);
-		handling_redirection_2(temp, wstatus, file);
+		if (handling_redirection_2(temp, wstatus, file))
 			return (1);
 		if (is_same(*cmd, "cd"))
 			sh_cd(cmd, envs, wstatus);
@@ -74,10 +73,9 @@ int		cmd_switch(char **cmd, t_list *envs, int *wstatus)
 			sh_export(cmd + 1, envs);
 		else if (is_same(*cmd, "unset"))
 			sh_unset(cmd + 1, envs);
+		return (1);
 	}
-	else
-		ret = 0;
-	return (ret);
+	return (0);
 }
 
 //int		cmd_switch(char **cmd, t_list *envs, int *wstatus)
@@ -122,6 +120,8 @@ void	fork_cmd_switch(char **cmd, t_list *envs, char **envp, int fd)
 		sh_ls(fd);
 	else if (is_same(*cmd, "clear"))
 		sh_clear(cmd, fd);
+	else if (is_same(*cmd, "export"))
+		sh_env(cmd, envs, fd);
 	else if (ft_strncmp(*cmd, "./", 2) == 0)
 		sh_exec(cmd, envp);
 	else
