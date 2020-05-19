@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 22:18:29 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/20 01:54:53 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,29 @@ int check_redirection(char **cmd, int *fd_file)
 	return (ret);
 }
 
+char **filter_cmd(char **cmd, int redirection)
+{
+	char **ret;
+	int size;
+
+	size = get_argc(cmd);
+	if (redirection < 0)
+		size -= 2;
+	ret = (char **)malloc(sizeof(char *) * (size + 1));
+	ret[size] = 0;
+	int i;
+	i = -1;
+	while (++i < size)
+	{
+		if (**cmd < 0)
+			cmd += 2;
+		ret[i] = ft_strdup(*cmd);
+		i++;
+		cmd++;
+	}
+	return (ret);
+}
+
 static void exec_cmds(char ***cmds, t_list *envs, char **envp, int *wstatus)
 {
 	int fdd;
@@ -61,10 +84,7 @@ static void exec_cmds(char ***cmds, t_list *envs, char **envp, int *wstatus)
 			{
 				dup2(fdd, 0);
 				if (*(cmds + 1))
-				{
-					// printf("zz?\n");
 					dup2(fd[1], 1);
-				}
 				redirection = check_redirection(*cmds, &fd_file);
 				if (fd_file < 0)
 				{
@@ -74,16 +94,15 @@ static void exec_cmds(char ***cmds, t_list *envs, char **envp, int *wstatus)
 					exit(1);
 				}
 				else if ((redirection == -1 || redirection == -2) && !*(cmds + 1))
-				{
-					// printf("%d\n", fd_file);
 					dup2(fd_file, 1);
-				}
 				else if (redirection == -3)
-				{
 					dup2(fd_file, 0);
-				}
 				close(fd[0]);
-				fork_cmd_switch(*cmds, envs, envp, 1);
+
+				char **cmd;
+				cmd = filter_cmd(*cmds, redirection);
+				fork_cmd_switch(cmd, envs, envp, 1);
+				free(cmd);
 				exit(0);
 			}
 			else

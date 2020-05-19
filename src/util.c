@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:39:20 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 05:28:38 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/20 01:45:57 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int get_argc(char **args)
 	count = 0;
 	while (*args)
 	{
-		if (**args < 0)
-			break ;
+		// if (**args < 0)
+			// break ;
 		count++;
 		args++;
 	}
