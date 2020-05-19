@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:40:38 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 06:58:17 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/19 14:07:26 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ void sh_echo(char **args, int fd)
 	option_n = 0;
 	argc = get_argc(args);
 	if (argc == 0)
-	{
 		ft_putchar_fd('\n', fd);
-		return ;
-	}
 	if (is_same(*args, "-n"))
 	{
 		option_n = 1;
@@ -39,7 +36,8 @@ void sh_echo(char **args, int fd)
 			ft_putchar_fd(' ', fd);
 		else if (i == argc - 1 && option_n == 0)
 			ft_putchar_fd('\n', fd);
-		// else if (i == argc - 1 && option_n == 1 && fd == 1)
-			// ft_putstr_fd("%\n", 1);
+		else if (i == argc - 1 && option_n == 1 && fd == 1)
+			ft_putstr_fd("%\n", 1);
 	}
+	exit(0);
 }
