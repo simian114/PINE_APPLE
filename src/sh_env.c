@@ -6,22 +6,33 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:41:33 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 23:04:19 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/19 13:16:16 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void sh_env(t_list *envs, int fd)
+void sh_env(char **args, t_list *envs, int fd)
 {
-	t_list *curr;
+	int		argc;
+	t_list	*curr;
 
+	if ((argc = get_argc(args)) > 1)
+	{
+		ft_putendl_fd("env: too many arguments", 2);
+		exit(1);
+	}
 	curr = envs;
 	while (curr)
 	{
-		ft_putstr_fd(((t_env *)curr->content)->key, fd);
-		ft_putstr_fd("=", fd);
-		ft_putendl_fd(((t_env *)curr->content)->value, fd);
+		if (ft_strncmp(((t_env *)curr->content)->key, "?",
+			ft_strlen(((t_env *)curr->content)->key)))
+		{
+			ft_putstr_fd(((t_env *)curr->content)->key, fd);
+			ft_putstr_fd("=", fd);
+			ft_putendl_fd(((t_env *)curr->content)->value, fd);
+		}
 		curr = curr->next;
 	}
+	exit(0);
 }
