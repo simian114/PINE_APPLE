@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 12:42:53 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/19 13:05:44 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void		exec_line(char *line, t_list *envs, char **envp, int *wstatus)
 		free_triple_char(&cmds);
 		semicolon_mover++;
 	}
+	store_status(envs, wstatus);
 	free_double_char(&semicolon);
 	free(line);
 }
