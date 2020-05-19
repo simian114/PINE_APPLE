@@ -11,7 +11,6 @@
 [ ] signal 처리
 	- [x] SIGINT(ctrl + c)
 	- [ ] SIGQUIT(ctrl + \)
-[ ] `> a` 처리
 
 
 ## norm
@@ -53,3 +52,4 @@
 [x] 그냥 echo만 해도 $?가 139인거 수정.
 [x] echo "$HOME>me" 등 특문이 들어가면 다 돼야함. 아직 규칙 파악 x.
 [x] 에러 처리.
+[x] `> a` 처리

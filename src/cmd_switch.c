@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 22:44:14 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 22:19:37 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/19 22:24:13 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,24 +111,13 @@ int		cmd_switch(char **cmd, t_list *envs, int *wstatus)
 
 void	fork_cmd_switch(char **cmd, t_list *envs, char **envp, int fd)
 {
-	// printf("zz\n");
-	// printf("[%d]\n", **cmd);
-	// printf("zz\n");
 	if (**cmd < 0)
 	{
-		// char *line;
-
-		// while (get_next_line(0, &line) > 0)
 		char buf;
+
 		while (read(0, &buf, 1) > 0)
-		{
-			// ft_putstr_fd(line, 1);
 			ft_putchar_fd(buf, 1);
-		}
-		if (buf != '\n')
-			exit(0);
 	}
-		
 	else if (is_same(*cmd, "echo"))
 		sh_echo(cmd + 1, fd);
 	else if (is_same(*cmd, "pwd"))
