@@ -3,7 +3,7 @@
     예를 들어, echo -n test.
     원래 방법으로는 가능했는데, pipe를 쓰게되면서 이거 해결이 다시 필요.
     편법으로 위의 경우는 고칠 수 있으나, echo -n test > test | ./a.out 와 같이 실질적인 해결은 못함.
-* [ ] (makefile에 빌트인 함수들은 따로 폴더를 만들까?)
+* [ ] makefile에 빌트인 함수들은 따로 폴더를 만들까?
 * [ ] signal 처리
 	- [x] SIGINT(ctrl + c)
 	- [ ] SIGQUIT(ctrl + \)
@@ -39,10 +39,11 @@
 	- pwd : 인자가 2 개 이상인 경우 에러
 	- clear : 인자가 2 개 이상인 경우 에러
 	- env : 인자가 2 개 이상인 경우 에러
-* [x] store_status(): exec_line 함수 마지막에 함수가 종료되면 상태를 그 상태를 저장한다.
-					기본적으로 환경변수에 key(?)를 추가하고 wstatus을 value로 넣는다.
-					env에서는 출력되지 않게 구현.
-* [x] ctrl + d(EOF)
+* [x] store_status():  
+	exec_line 함수 마지막에 함수가 종료되면 상태를 그 상태를 저장한다.  
+	기본적으로 환경변수에 key(?)를 추가하고 wstatus을 value로 넣는다.  
+	env에서는 출력되지 않게 구현.
+* [x] ctrl + d (EOF)
 * [x] $? 구현. > export, unset 제외하고 함. 이 녀석들은 추후 에러 찾고 추가할 것.
 * [x] export, unset, cd 같이 fork 안하는 함수들도 리다이렉션 되게 수정.
 * [x] 에러 처리.
