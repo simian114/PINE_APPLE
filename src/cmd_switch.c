@@ -6,13 +6,13 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 22:44:14 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 05:43:24 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/19 11:26:32 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		cmd_switch(char **cmd, t_list *envs)
+int		cmd_switch(char **cmd, t_list *envs, int *wstatus)
 {
 	int ret;
 
@@ -20,7 +20,7 @@ int		cmd_switch(char **cmd, t_list *envs)
 	if (is_same(*cmd, "exit"))
 		exit(0);
 	else if (is_same(*cmd, "cd"))
-		sh_cd(cmd, envs);
+		sh_cd(cmd, envs, wstatus);
 	else if (is_same(*cmd, "export") && *(cmd + 1))
 		sh_export(cmd + 1, envs);
 	else if (is_same(*cmd, "unset"))

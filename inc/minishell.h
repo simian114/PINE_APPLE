@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:29:52 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 05:28:53 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/19 12:41:55 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ typedef struct	s_env
 ** cmd_switch.c
 */
 void			fork_cmd_switch(char **cmd, t_list *envs, char **envp, int fd);
-int				cmd_switch(char **cmd, t_list *envs);
+int				cmd_switch(char **cmd, t_list *envs, int *wstatus);
 
 /*
 ** exec_line.c
 */
-void			exec_line(char *line, t_list *envs, char **envp);
+void			exec_line(char *line, t_list *envs, char **envp, int *wstatus);
 
 /*
 ** get_args.c
@@ -68,7 +68,7 @@ char			**semicolon_split(char *line);
 /*
 ** builtins
 */
-void			sh_cd(char **args, t_list *envs);
+void			sh_cd(char **args, t_list *envs, int *wstatus);
 void			sh_clear(int fd);
 void			sh_echo(char **args, int fd);
 void			sh_env(t_list *envs, int fd);

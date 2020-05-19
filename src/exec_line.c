@@ -6,12 +6,11 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 05:21:23 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/19 12:42:53 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
 static int check_redirection(char **cmd, int *fd_file)
 {
@@ -38,7 +37,7 @@ static int check_redirection(char **cmd, int *fd_file)
 	return (ret);
 }
 
-static void exec_cmds(char ***cmds, t_list *envs, char **envp)
+static void exec_cmds(char ***cmds, t_list *envs, char **envp, int *wstatus)
 {
 	int fdd;
 	int fd[2];
@@ -49,7 +48,7 @@ static void exec_cmds(char ***cmds, t_list *envs, char **envp)
 	fdd = 0;
 	while (*cmds)
 	{
-		if (!cmd_switch(*cmds, envs))
+		if (!cmd_switch(*cmds, envs, wstatus))
 		{
 			pipe(fd);
 			if ((pid = fork()) == -1)
@@ -76,7 +75,7 @@ static void exec_cmds(char ***cmds, t_list *envs, char **envp)
 			}
 			else
 			{
-				wait(NULL);
+				wait(wstatus);
 				close(fd[1]);
 				fdd = fd[0];
 				// if (!*(cmd + 1) && is_same(**cmd, "echo") && is_same(*(*cmd + 1), "-n"))
@@ -87,7 +86,7 @@ static void exec_cmds(char ***cmds, t_list *envs, char **envp)
 	}
 }
 
-void		exec_line(char *line, t_list *envs, char **envp)
+void		exec_line(char *line, t_list *envs, char **envp, int *wstatus)
 {
 	char	**semicolon;
 	char	**semicolon_mover;
@@ -101,7 +100,7 @@ void		exec_line(char *line, t_list *envs, char **envp)
 		args = get_args(*semicolon_mover, envs);
 		cmds = pipe_split(args);
 		free_double_char(&args);
-		exec_cmds(cmds, envs, envp);
+		exec_cmds(cmds, envs, envp, wstatus);
 		free_triple_char(&cmds);
 		semicolon_mover++;
 	}
