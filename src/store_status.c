@@ -6,7 +6,7 @@
 /*   By: sanam <sanam@studenr.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 13:06:41 by sanam             #+#    #+#             */
-/*   Updated: 2020/05/19 13:06:59 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/19 17:48:34 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void		store_status(t_list *envs, int *wstatus)
 	args[0] = ft_strdup(str);
 	args[1] = NULL;
 	sh_export(args, envs);
+	free(args[0]);
 	free(status);
 	free(str);
 }
