@@ -6,7 +6,7 @@
 #    By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/11 21:00:54 by gmoon             #+#    #+#              #
-#    Updated: 2020/05/19 22:00:05 by gmoon            ###   ########.fr        #
+#    Updated: 2020/05/20 08:12:03 by gmoon            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,20 +24,20 @@ SRC =	cmd_switch.c \
 		print_art.c \
 		print_commandline.c \
 		semicolon.c \
-		sh_cd.c \
-		sh_clear.c \
-		sh_echo.c \
-		sh_env.c \
-		sh_exec.c \
-		sh_export.c \
-		sh_ls.c \
-		sh_pwd.c \
-		sh_unset.c \
 		signal.c \
+		store_status.c \
 		util_env.c \
 		util.c	\
 		util_free.c \
-		store_status.c
+		builtin/sh_cd.c \
+		builtin/sh_clear.c \
+		builtin/sh_echo.c \
+		builtin/sh_env.c \
+		builtin/sh_exec.c \
+		builtin/sh_export.c \
+		builtin/sh_ls.c \
+		builtin/sh_pwd.c \
+		builtin/sh_unset.c
 OBJ = $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 CC = gcc
@@ -52,6 +52,7 @@ all: obj $(FT_LIB) $(NAME)
 
 obj:
 	mkdir -p $(OBJDIR)
+	mkdir -p $(OBJDIR)/builtin
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(FT_INC) -I $(INCDIR) -o $@ -c $<
