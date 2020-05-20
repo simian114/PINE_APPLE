@@ -2,19 +2,6 @@
 * [ ] signal 처리
 	* [x] SIGINT(ctrl + c)
 	* [ ] SIGQUIT(ctrl + \)
-* [ ] `echo a >>> b`, `echo a << b`, `echo a <<< b` 등 에러.
-
-
-## norm
-* [x] cmd_switch.c: fd 인자때문에 구조 수정 여지 있음.
-* [ ] exec_line.c
-* [ ] get_args.c
-* [x] main.c
-* [x] pipe.c
-* [x] print_art.c
-* [x] print_commandline.c
-* [x] semicolon.c
-* [x] built_in functions
 
 
 ## we_did
@@ -50,4 +37,7 @@
 * [x] `echo hello > a asdf`와 같은 경우 asdf도 인자로 들어가게 수정.
 * [x] 마지막에 개행이 없는 경우, %가 붙어야 하는데 어떻게 하지?  
 	-> bash에서는 %\n의 출력이 안되는 것으로 확인.
+
+20.05.20
 * [x] makefile에 빌트인 함수들은 따로 폴더를 만들까?
+* [x] `echo a >>> b`, `echo a << b`, `echo a <<< b` 등 에러.

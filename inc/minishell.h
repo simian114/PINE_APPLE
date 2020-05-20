@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:29:52 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 14:00:32 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/20 14:12:56 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,41 @@ typedef struct	s_env
 	char		*value;
 }				t_env;
 
-int				core;
+int				g_core;
+
+/*
+** builtins
+*/
+void			sh_cd(char **args, t_list *envs, int *wstatus);
+void			sh_clear(char **args, int fd);
+void			sh_echo(char **args, int fd);
+void			sh_env(char **args, t_list *envs, int fd);
+void			sh_exec(char **args, char **envp);
+void			sh_export(char **args, t_list *envs);
+void			sh_ls(int fd);
+void			sh_pwd(char **args, int fd);
+void			sh_unset(char **args, t_list *envs);
+
+/*
+** check redirection.c
+*/
+int				check_redirection(char **cmd, int *fd_file);
 
 /*
 ** cmd_switch.c
 */
 void			fork_cmd_switch(char **cmd, t_list *envs, char **envp, int fd);
 int				cmd_switch(char **cmd, t_list *envs, int *wstatus);
+
+/*
+** convert_arg.c
+*/
+char			*convert_arg_1(char **command, char **ret, int *quote);
+char			*convert_arg_1_1(char **command, char **ret);
+char			*convert_arg_1_2(char **command, char **ret);
+char			*convert_arg_1_3(char **command, char **ret);
+char			**convert_arg_2(char **command, t_list *envs,
+								int *quote, char **ret);
 
 /*
 ** exec_line.c
@@ -69,42 +97,15 @@ int				print_commandline(void);
 char			**semicolon_split(char *line);
 
 /*
-** builtins
-*/
-void			sh_cd(char **args, t_list *envs, int *wstatus);
-void			sh_clear(char **args, int fd);
-void			sh_echo(char **args, int fd);
-void			sh_env(char **args, t_list *envs, int fd);
-void			sh_exec(char **args, char **envp);
-void			sh_export(char **args, t_list *envs);
-void			sh_ls(int fd);
-void			sh_pwd(char **args, int fd);
-void			sh_unset(char **args, t_list *envs);
-
-/*
-** convert_arg.c
-*/
-char		*convert_arg_1(char **command, char **ret, int *quote);
-char		*convert_arg_1_1(char **command, char **ret);
-char		*convert_arg_1_2(char **command, char **ret);
-char		*convert_arg_1_3(char **command, char **ret);
-char		**convert_arg_2(char **command, t_list *envs,
-								int *quote, char **ret);
-/*
-** store_status.c
-*/
-void			store_status(t_list *envs, int *wstatus);
-
-/*
-** check redirection.c
-*/
-int			check_redirection(char **cmd, int *fd_file);
-
-/*
 ** signal.c
 */
 void			sigint_handle();
 void			sigquit_handle();
+
+/*
+** store_status.c
+*/
+void			store_status(t_list *envs, int *wstatus);
 
 /*
 ** util_env.c

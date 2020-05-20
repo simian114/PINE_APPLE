@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 00:55:32 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 13:53:26 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/20 14:13:36 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	args_count(char *c, int *count)
 	return (*count);
 }
 
-int	key_len(char *str)
+int			key_len(char *str)
 {
 	int		len;
 

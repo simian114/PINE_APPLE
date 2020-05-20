@@ -6,7 +6,7 @@
 #    By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/11 21:00:54 by gmoon             #+#    #+#              #
-#    Updated: 2020/05/20 13:50:53 by sanam            ###   ########.fr        #
+#    Updated: 2020/05/20 14:12:45 by gmoon            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ SRCDIR = ./src
 INCDIR = ./inc
 OBJDIR = ./obj
 
-SRC =	cmd_switch.c \
+SRC =	check_redirection.c \
+		cmd_switch.c \
+		convert_arg.c \
 		exec_line.c \
 		get_args.c \
 		main.c \
@@ -27,10 +29,8 @@ SRC =	cmd_switch.c \
 		signal.c \
 		store_status.c \
 		util_env.c \
-		util.c	\
 		util_free.c \
-		convert_arg.c \
-		check_redirection.c \
+		util.c	\
 		builtin/sh_cd.c \
 		builtin/sh_clear.c \
 		builtin/sh_echo.c \
