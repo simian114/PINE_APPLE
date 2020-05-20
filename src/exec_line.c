@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 13:00:45 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/20 13:04:19 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ int check_redirection(char **cmd, int *fd_file)
 		*fd_file = open(*(cmd + 1), O_WRONLY | O_CREAT | O_APPEND , 0744);
 	else if (ret == -3)
 		*fd_file = open(*(cmd + 1), O_RDONLY);
-	else if (ret == -10)
-		exit(1);
-	else if (ret == -11)
-		exit(1);
+	else if (ret == -10 || ret == -11 || ret == -12)
+		exit(-1);
 	else
 		*fd_file = 1;
 	return (ret);
