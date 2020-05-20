@@ -2,7 +2,7 @@
 * [ ] signal 처리
 	* [x] SIGINT(ctrl + c)
 	* [ ] SIGQUIT(ctrl + \)
-
+* [ ] `echo a >>> b`, `echo a << b`, `echo a <<< b` 등 에러.
 
 ## norm
 * [x] cmd_switch.c: fd 인자때문에 구조 수정 여지 있음.

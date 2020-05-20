@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_args.c                                         :+:      :+:    :+:   */
+/*   get_args_temp.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 00:55:32 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 20:52:00 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/20 12:58:36 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,9 @@ static char *convert_arg(char **command, t_list *envs)
 				ret = char_to_str(-2);
 			else
 			{
-				ft_putstr_fd("error in >.\n", 2); //임시
-				return (0);
+				// ft_putstr_fd("error in >.\n", 2); //임시
+				// return (0);
+				ret = char_to_str(-10);
 			}
 			*command += len;
 			return (ret);
@@ -115,8 +116,9 @@ static char *convert_arg(char **command, t_list *envs)
 				ret = char_to_str(-3);
 			else
 			{
-				ft_putstr_fd("error in <.\n", 2); //임시
-				return (0);
+				// ft_putstr_fd("error in <.\n", 2); //임시
+				// return (0);
+				ret = char_to_str(-11);
 			}
 			*command += len;
 			return (ret);
