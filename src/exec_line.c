@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 13:30:00 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/20 13:33:47 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,17 +154,6 @@ void		exec_line(char *line, t_list *envs, char **envp, int *wstatus)
 	{
 		args = get_args(*semicolon_mover, envs);
 		cmds = pipe_split(args);
-
-		// while (*cmds)
-		// {
-		// 	while (**cmds)
-		// 	{
-		// 		printf("[%s (%d)]\n", **cmds, ***cmds);
-		// 		(*cmds)++;
-		// 	}
-		// 	(cmds)++;
-		// }
-
 		free_double_char(&args);
 		exec_cmds(cmds, envs, envp, wstatus);
 		free_triple_char(&cmds);
