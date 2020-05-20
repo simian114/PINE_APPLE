@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 00:55:32 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 12:53:16 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/20 13:04:34 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,7 @@ static char	*convert_arg_1_1(char **command, char **ret)
 	if (len < 3)
 		*ret = char_to_str(len * -1);
 	else
-	{
-		ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
-		ft_putstr_fd("parse error near `>'", 2);
-		return (0);
-	}
+		*ret = char_to_str(-10);
 	*command += len;
 	return (*ret);
 }
@@ -86,11 +82,7 @@ static char	*convert_arg_1_2(char **command, char **ret)
 	if (len == 1)
 		*ret = char_to_str(-3);
 	else
-	{
-		ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
-		ft_putstr_fd("parse error near `<'", 2);
-		return (0);
-	}
+		*ret = char_to_str(-11);
 	*command += len;
 	return (*ret);
 }
@@ -106,11 +98,7 @@ static char	*convert_arg_1_3(char **command, char **ret)
 	if (len == 1)
 		*ret = char_to_str(-4);
 	else
-	{
-		ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
-		ft_putstr_fd("parse error near `|'", 2);
-		return (0);
-	}
+		*ret = char_to_str(-12);
 	*command += len;
 	return (*ret);
 }

@@ -6,15 +6,16 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 13:04:19 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/20 13:12:08 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int check_redirection(char **cmd, int *fd_file)
+int			check_redirection(char **cmd, int *fd_file)
 {
-	int ret;
+	int		ret;
+	char	temp[2];
 
 	ret = 0;
 	while (*cmd)
@@ -33,7 +34,20 @@ int check_redirection(char **cmd, int *fd_file)
 	else if (ret == -3)
 		*fd_file = open(*(cmd + 1), O_RDONLY);
 	else if (ret == -10 || ret == -11 || ret == -12)
+	{
+		ft_bzero(temp, 2);
+		if (ret == -10)
+			*temp = '>';
+		else if (ret == -11)
+			*temp = '<';
+		else
+			*temp = '|';
+		ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
+		ft_putstr_fd("parse error near `", 2);
+		ft_putstr_fd(temp, 2);
+		ft_putendl_fd("'", 2);
 		exit(-1);
+	}
 	else
 		*fd_file = 1;
 	return (ret);

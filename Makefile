@@ -6,7 +6,7 @@
 #    By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/11 21:00:54 by gmoon             #+#    #+#              #
-#    Updated: 2020/05/20 13:01:07 by gmoon            ###   ########.fr        #
+#    Updated: 2020/05/20 13:10:39 by sanam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJDIR = ./obj
 
 SRC =	cmd_switch.c \
 		exec_line.c \
-		get_args_temp.c \
+		get_args.c \
 		main.c \
 		pipe.c \
 		print_art.c \
