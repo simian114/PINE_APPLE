@@ -6,54 +6,39 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 00:55:32 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 12:35:01 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/20 12:53:16 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	args_count(char *command)
+static int	args_count(char *c, int *count)
 {
-	int count;
-	int quote;
+	int		quote;
+	char	temp;
 
-	count = 0;
 	quote = 0;
-	while (*command)
+	while (*c)
 	{
-		if (quote == 0 && (*command == '\'' || *command == '\"'))
-			quote += *command;
-		else if (quote != 0 && *command == quote)
-			quote -= *command;
-		if (quote == 0 &&
-			(*command != ' ' && *command != '>' && *command != '|' && *command != '<') &&
-			(*(command + 1) == ' ' || !*(command + 1) ||
-			*(command + 1) == '>' || *(command + 1) == '|' || *(command + 1) == '<'))
-			count++;
-		else if (quote == 0 && *command == '>')
+		if (quote == 0 && (*c == '\'' || *c == '\"'))
+			quote += *c;
+		else if (quote != 0 && *c == quote)
+			quote -= *c;
+		if (quote == 0 && (*c != ' ' && *c != '>' && *c != '|' && *c != '<') &&
+			(*(c + 1) == ' ' || !*(c + 1) ||
+			*(c + 1) == '>' || *(c + 1) == '|' || *(c + 1) == '<'))
+			*count += 1;
+		else if (quote == 0 && (*c == '>' || *c == '|' || *c == '<'))
 		{
-			count++;
-			while (*command == '>')
-				command++;
-			command--;
+			temp = *c;
+			*count += 1;
+			while (*c == temp)
+				c++;
+			c--;
 		}
-		else if (quote == 0 && *command == '|')
-		{
-			count++;
-			while (*command == '|')
-				command++;
-			command--;
-		}
-		else if (quote == 0 && *command == '<')
-		{
-			count++;
-			while (*command == '<')
-				command++;
-			command--;
-		}
-		command++;
+		c++;
 	}
-	return (count);
+	return (*count);
 }
 
 static int	key_len(char *str)
@@ -102,7 +87,8 @@ static char	*convert_arg_1_2(char **command, char **ret)
 		*ret = char_to_str(-3);
 	else
 	{
-		ft_putstr_fd("error in <.\n", 2);
+		ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
+		ft_putstr_fd("parse error near `<'", 2);
 		return (0);
 	}
 	*command += len;
@@ -121,7 +107,8 @@ static char	*convert_arg_1_3(char **command, char **ret)
 		*ret = char_to_str(-4);
 	else
 	{
-		ft_putstr_fd("error in |.\n", 2);
+		ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
+		ft_putstr_fd("parse error near `|'", 2);
 		return (0);
 	}
 	*command += len;
@@ -188,7 +175,8 @@ char **get_args(char *command, t_list *envs)
 	char **args;
 	int i;
 
-	count = args_count(command);
+	count = 0;
+	count = args_count(command, &count);
 	args = (char **)malloc(sizeof(char *) * (count + 1));
 	args[count] = 0;
 	i = -1;
