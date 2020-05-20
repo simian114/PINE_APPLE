@@ -6,16 +6,33 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 13:12:08 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/20 13:22:16 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void		redirection_error(int ret)
+{
+	char	temp[2];
+
+	ft_bzero(temp, 2);
+	if (ret == -10)
+		*temp = '>';
+	else if (ret == -11)
+		*temp = '<';
+	else
+		*temp = '|';
+	ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
+	ft_putstr_fd("parse error near `", 2);
+	ft_putstr_fd(temp, 2);
+	ft_putendl_fd("'", 2);
+	exit(-1);
+}
+
 int			check_redirection(char **cmd, int *fd_file)
 {
 	int		ret;
-	char	temp[2];
 
 	ret = 0;
 	while (*cmd)
@@ -34,20 +51,7 @@ int			check_redirection(char **cmd, int *fd_file)
 	else if (ret == -3)
 		*fd_file = open(*(cmd + 1), O_RDONLY);
 	else if (ret == -10 || ret == -11 || ret == -12)
-	{
-		ft_bzero(temp, 2);
-		if (ret == -10)
-			*temp = '>';
-		else if (ret == -11)
-			*temp = '<';
-		else
-			*temp = '|';
-		ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
-		ft_putstr_fd("parse error near `", 2);
-		ft_putstr_fd(temp, 2);
-		ft_putendl_fd("'", 2);
-		exit(-1);
-	}
+		redirection_error(ret);
 	else
 		*fd_file = 1;
 	return (ret);
@@ -75,13 +79,35 @@ char **get_cmd(char **cmd, int redirection)
 	return (ret);
 }
 
+char **child_process(int fdd, char ***cmds, int fd[2])
+{
+	int redirection;
+	int fd_file;
+
+	dup2(fdd, 0);
+	if (*(cmds + 1))
+		dup2(fd[1], 1);
+	redirection = check_redirection(*cmds, &fd_file);
+	if (fd_file < 0)
+	{
+		ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd("\n", 2);
+		exit(1);
+	}
+	else if ((redirection == -1 || redirection == -2) && !*(cmds + 1))
+		dup2(fd_file, 1);
+	else if (redirection == -3)
+		dup2(fd_file, 0);
+	close(fd[0]);
+	return (get_cmd(*cmds, redirection));
+}
+
 static void exec_cmds(char ***cmds, t_list *envs, char **envp, int *wstatus)
 {
 	int fdd;
 	int fd[2];
 	pid_t pid;
-	int redirection;
-	int fd_file;
 	char **cmd;
 
 	fdd = 0;
@@ -94,23 +120,24 @@ static void exec_cmds(char ***cmds, t_list *envs, char **envp, int *wstatus)
 				ft_putstr_fd("pid error.\n", 2);
 			else if (pid == 0)
 			{
-				dup2(fdd, 0);
-				if (*(cmds + 1))
-					dup2(fd[1], 1);
-				redirection = check_redirection(*cmds, &fd_file);
-				if (fd_file < 0)
-				{
-					ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
-					ft_putstr_fd(strerror(errno), 2);
-					ft_putstr_fd("\n", 2);
-					exit(1);
-				}
-				else if ((redirection == -1 || redirection == -2) && !*(cmds + 1))
-					dup2(fd_file, 1);
-				else if (redirection == -3)
-					dup2(fd_file, 0);
-				close(fd[0]);
-				cmd = get_cmd(*cmds, redirection);
+				// dup2(fdd, 0);
+				// if (*(cmds + 1))
+				// 	dup2(fd[1], 1);
+				// redirection = check_redirection(*cmds, &fd_file);
+				// if (fd_file < 0)
+				// {
+				// 	ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
+				// 	ft_putstr_fd(strerror(errno), 2);
+				// 	ft_putstr_fd("\n", 2);
+				// 	exit(1);
+				// }
+				// else if ((redirection == -1 || redirection == -2) && !*(cmds + 1))
+				// 	dup2(fd_file, 1);
+				// else if (redirection == -3)
+				// 	dup2(fd_file, 0);
+				// close(fd[0]);
+				// cmd = get_cmd(*cmds, redirection);
+				cmd = child_process(fdd, cmds, fd);
 				fork_cmd_switch(cmd, envs, envp, 1);
 				free_double_char(&cmd);
 				exit(0);
@@ -120,8 +147,6 @@ static void exec_cmds(char ***cmds, t_list *envs, char **envp, int *wstatus)
 				wait(wstatus);
 				close(fd[1]);
 				fdd = fd[0];
-				// if (!*(cmds + 1) && is_same(**cmds, "echo") && is_same(*(*cmds + 1), "-n"))
-					// ft_putstr_fd("%\n", 1);
 			}
 		}
 		cmds++;
