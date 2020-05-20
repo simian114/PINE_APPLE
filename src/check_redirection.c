@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_redirection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanam <sanam@studenr.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 13:49:26 by sanam             #+#    #+#             */
-/*   Updated: 2020/05/20 13:49:57 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/21 07:13:39 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	redirection_error(int ret)
 	else
 		*temp = '|';
 	ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
-	ft_putstr_fd("parse error near `", 2);
+	ft_putstr_fd("syntax error near unexpected token `", 2);
 	ft_putstr_fd(temp, 2);
 	ft_putendl_fd("'", 2);
 	exit(-1);

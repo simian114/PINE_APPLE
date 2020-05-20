@@ -3,3 +3,4 @@ a.out
 minishell
 /obj
 *.a
+/minishell-tester

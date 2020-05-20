@@ -1,5 +1,6 @@
 # :pineapple: PINE APPLE SHELL
-***Minishell for 42***
+***minishell by [gmoon](https://github.com/moon9ua) and [sanam](https://github.com/simian114).***<br>
+***@ 42 Seoul***
 
 ![GIF](GIF.gif)
 
@@ -40,3 +41,36 @@
 * [x] makefile에 빌트인 함수들은 따로 폴더를 만들까?
 * [x] `echo a >>> b`, `echo a << b`, `echo a <<< b` 등 에러.
 * [x] signal 처리
+
+### 2020. 05. 21
+Return value of a process
+- [x] Execute a simple command with absolute path like /bin/ls or any other command with arguments but without quotes and double quotes then execute echo $?
+- [x] Check the printed value. You can repeat the same in bash and compare it.
+- [ ] Repeat multiple times with different commands and arguments, use some failing commands like '/bin/ls filethatdoesntexist'
+
+Signals
+- Try ctrl-C in an empty prompt
+- Try ctrl-\ in an empty prompt
+- Try ctrl-D in an empty prompt
+- Try ctrl-C in a prompt after you wrote some stuff
+- Try ctrl-D in a prompt after you wrote some stuff
+- Try ctrl-\ in a prompt after you wrote some stuff
+- Try ctrl-C after running a blocking command like cat or grep without arguments
+- Try ctrl-\ after running a blocking command like cat or grep without arguments
+- Try ctrl-D after running a blocking command like cat or grep without arguments
+- Repeat multiple times with different commands
+
+Double Quotes
+- [x] Execute a simple command with absolute path with arguments but this time double quotes (you should include whitespaces and semicolons in the quotes)
+- [ ] Think about empty arguments or a weird use of '\'
+- [x] Do not try multiline strings
+
+export
+// export를 인자 없이 했을 때, env와는 차이가 있음. 앞에 declare -x가 붙나?
+- [x] Export environment variables, create new ones and replace old ones
+- [x] Check them with env
+
+Environment Path
+- [x] Execute commands but this time without any path. (ls, wc, awk etc...)
+- [ ] Unset the $PATH and check if it is not working anymore
+- [ ] Set the $PATH to a multiple directory value (directory1:directory2) and check that directories are checked in order from left to right
