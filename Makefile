@@ -6,7 +6,7 @@
 #    By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/11 21:00:54 by gmoon             #+#    #+#              #
-#    Updated: 2020/05/20 13:10:39 by sanam            ###   ########.fr        #
+#    Updated: 2020/05/20 13:50:53 by sanam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ SRC =	cmd_switch.c \
 		util_env.c \
 		util.c	\
 		util_free.c \
+		convert_arg.c \
+		check_redirection.c \
 		builtin/sh_cd.c \
 		builtin/sh_clear.c \
 		builtin/sh_echo.c \

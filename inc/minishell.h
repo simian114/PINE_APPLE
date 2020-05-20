@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:29:52 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 13:30:24 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/20 14:00:32 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@
 # include <errno.h>
 # include <string.h>
 # include "libft.h"
-#include <stdio.h>
 
 typedef struct	s_env
 {
 	char		*key;
 	char		*value;
 }				t_env;
+
+int				core;
 
 /*
 ** cmd_switch.c
@@ -40,12 +41,12 @@ int				cmd_switch(char **cmd, t_list *envs, int *wstatus);
 ** exec_line.c
 */
 void			exec_line(char *line, t_list *envs, char **envp, int *wstatus);
-// int				check_redirection(char **cmd, int *fd_file);
 
 /*
 ** get_args.c
 */
 char			**get_args(char *command, t_list *envs);
+int				key_len(char *str);
 
 /*
 ** pipe.c
@@ -81,10 +82,23 @@ void			sh_pwd(char **args, int fd);
 void			sh_unset(char **args, t_list *envs);
 
 /*
-** store status
+** convert_arg.c
 */
-
+char		*convert_arg_1(char **command, char **ret, int *quote);
+char		*convert_arg_1_1(char **command, char **ret);
+char		*convert_arg_1_2(char **command, char **ret);
+char		*convert_arg_1_3(char **command, char **ret);
+char		**convert_arg_2(char **command, t_list *envs,
+								int *quote, char **ret);
+/*
+** store_status.c
+*/
 void			store_status(t_list *envs, int *wstatus);
+
+/*
+** check redirection.c
+*/
+int			check_redirection(char **cmd, int *fd_file);
 
 /*
 ** signal.c

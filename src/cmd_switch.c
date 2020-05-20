@@ -6,12 +6,11 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 22:44:14 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 02:07:44 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/20 13:29:44 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
 int		handling_redirection(char **cmd, char **file)
 {
@@ -79,46 +78,20 @@ int		cmd_switch(char **cmd, t_list *envs, int *wstatus)
 	return (0);
 }
 
-//int		cmd_switch(char **cmd, t_list *envs, int *wstatus)
-//{
-//	int ret;
-//
-//	check_redirection(cmd, fd_file);
-//	if (*fd_file > 0)
-//		close(*fd_file);
-//	if (errno != 0)
-//	{
-//		*wstatus = 1;
-//		ft_putendl_fd("here", 2);
-//		ft_putendl_fd(*cmd, 2);
-//		ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
-//		ft_putendl_fd(strerror(errno), 2);
-//		return (1);
-//	}
-//	ret = 1;
-//	if (is_same(*cmd, "exit"))
-//		exit(0);
-//	else if (is_same(*cmd, "cd"))
-//		sh_cd(cmd, envs, wstatus);
-//	else if (is_same(*cmd, "export") && *(cmd + 1))
-//		sh_export(cmd + 1, envs);
-//	else if (is_same(*cmd, "unset"))
-//		sh_unset(cmd + 1, envs);
-//	else
-//		ret = 0;
-//	return (ret);
-//}
+void	cmd_error(char *command)
+{
+	ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m command not found: ", 2);
+	ft_putendl_fd(command, 2);
+	exit(1);
+}
 
 void	fork_cmd_switch(char **cmd, t_list *envs, char **envp, int fd)
 {
-	if (!*cmd)
-	{
-		char buf;
+	char	buf;
 
-		buf = 0;
+	if (!*cmd)
 		while (read(0, &buf, 1) > 0)
 			ft_putchar_fd(buf, 1);
-	}
 	else if (is_same(*cmd, "echo"))
 		sh_echo(cmd + 1, fd);
 	else if (is_same(*cmd, "pwd"))
@@ -134,9 +107,5 @@ void	fork_cmd_switch(char **cmd, t_list *envs, char **envp, int fd)
 	else if (ft_strncmp(*cmd, "./", 2) == 0)
 		sh_exec(cmd, envp);
 	else
-	{
-		ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m command not found: ", 2);
-		ft_putendl_fd(cmd[0], 2);
-		exit(1);
-	}
+		cmd_error(cmd[0]);
 }

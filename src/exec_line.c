@@ -6,68 +6,23 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 13:33:47 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/20 14:00:05 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		redirection_error(int ret)
+static char	**get_cmd(char **cmd, int redirection)
 {
-	char	temp[2];
-
-	ft_bzero(temp, 2);
-	if (ret == -10)
-		*temp = '>';
-	else if (ret == -11)
-		*temp = '<';
-	else
-		*temp = '|';
-	ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
-	ft_putstr_fd("parse error near `", 2);
-	ft_putstr_fd(temp, 2);
-	ft_putendl_fd("'", 2);
-	exit(-1);
-}
-
-static int			check_redirection(char **cmd, int *fd_file)
-{
-	int		ret;
-
-	ret = 0;
-	while (*cmd)
-	{
-		if (**cmd < 0)
-		{
-			ret = **cmd;
-			break ;
-		}
-		cmd++;
-	}
-	if (ret == -1)
-		*fd_file = open(*(cmd + 1), O_WRONLY | O_CREAT | O_TRUNC, 0744);
-	else if (ret == -2)
-		*fd_file = open(*(cmd + 1), O_WRONLY | O_CREAT | O_APPEND , 0744);
-	else if (ret == -3)
-		*fd_file = open(*(cmd + 1), O_RDONLY);
-	else if (ret == -10 || ret == -11 || ret == -12)
-		redirection_error(ret);
-	else
-		*fd_file = 1;
-	return (ret);
-}
-
-static char **get_cmd(char **cmd, int redirection)
-{
-	char **ret;
-	int size;
+	int		i;
+	int		size;
+	char	**ret;
 
 	size = get_argc(cmd);
 	if (redirection < 0)
 		size -= 2;
 	ret = (char **)malloc(sizeof(char *) * (size + 1));
 	ret[size] = 0;
-	int i;
 	i = -1;
 	while (++i < size)
 	{
@@ -79,10 +34,10 @@ static char **get_cmd(char **cmd, int redirection)
 	return (ret);
 }
 
-static char **init_fd(int fdd, char ***cmds, int fd[2])
+static char	**init_fd(int fdd, char ***cmds, int fd[2])
 {
-	int redirection;
-	int fd_file;
+	int		redirection;
+	int		fd_file;
 
 	dup2(fdd, 0);
 	if (*(cmds + 1))
@@ -103,19 +58,19 @@ static char **init_fd(int fdd, char ***cmds, int fd[2])
 	return (get_cmd(*cmds, redirection));
 }
 
-static void parent_process(int *wstatus, int fd[2], int *fdd)
+static void	parent_process(int *wstatus, int fd[2], int *fdd)
 {
 	wait(wstatus);
 	close(fd[1]);
 	*fdd = fd[0];
 }
 
-static void exec_cmds(char ***cmds, t_list *envs, char **envp, int *wstatus)
+static void	exec_cmds(char ***cmds, t_list *envs, char **envp, int *wstatus)
 {
-	int fdd;
-	int fd[2];
-	pid_t pid;
-	char **cmd;
+	int		fdd;
+	int		fd[2];
+	pid_t	pid;
+	char	**cmd;
 
 	fdd = 0;
 	while (*cmds)
@@ -146,8 +101,6 @@ void		exec_line(char *line, t_list *envs, char **envp, int *wstatus)
 	char	**args;
 	char	***cmds;
 
-	if (!envp)
-		printf("zz\n");
 	semicolon = semicolon_split(line);
 	semicolon_mover = semicolon;
 	while (*semicolon_mover)

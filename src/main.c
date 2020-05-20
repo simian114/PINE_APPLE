@@ -6,12 +6,11 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:50:17 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 15:39:59 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/20 14:00:38 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -19,6 +18,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	int		wstatus;
 
+	core = getpid();
 	if (!argc && argv)
 		exit(1);
 	print_art();
