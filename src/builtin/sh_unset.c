@@ -6,13 +6,13 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:43:23 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 13:44:40 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/20 11:08:20 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void sh_unset(char **args, t_list *envs)
+void		sh_unset(char **args, t_list *envs)
 {
 	t_list *curr;
 	t_list *next;

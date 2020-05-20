@@ -6,13 +6,13 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:41:33 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 19:45:58 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/20 10:46:50 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void sh_env(char **args, t_list *envs, int fd)
+void		sh_env(char **args, t_list *envs, int fd)
 {
 	int		argc;
 	t_list	*curr;

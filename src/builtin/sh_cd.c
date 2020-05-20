@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:41:00 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 12:45:57 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/20 10:42:29 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,19 @@ void	sh_cd(char **args, t_list *envs, int *wstatus)
 	{
 		home = find_value(envs, "HOME");
 		if (chdir(home) == -1)
-			cd_error(ft_strjoin("cd: ", strerror(errno)), ft_strdup(home), 0, wstatus);
+			cd_error(ft_strjoin("cd: ", strerror(errno)),
+			ft_strdup(home), 0, wstatus);
 	}
 	else if (argc == 2)
 	{
 		if (chdir(args[1]) == -1)
-			cd_error(ft_strjoin("cd: ", strerror(errno)), ft_strdup(args[1]), 0, wstatus);
+			cd_error(ft_strjoin("cd: ", strerror(errno)),
+			ft_strdup(args[1]), 0, wstatus);
 	}
 	else if (argc == 3)
 		cd_error(ft_strjoin("cd: ", "string not in pwd"),
 		ft_strdup(args[1]), 0, wstatus);
-	else 
+	else
 		cd_error(ft_strjoin("cd: ", "too many arguments"),
 		ft_strdup(""), 1, wstatus);
 }

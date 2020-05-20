@@ -6,13 +6,13 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:39:20 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 01:45:57 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/20 11:12:33 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_line(char **line)
+int		get_line(char **line)
 {
 	char	buf[2];
 	char	*temp;
@@ -28,12 +28,12 @@ int	get_line(char **line)
 			free(temp);
 		}
 		if (ft_strlen(*line) == 0 && *buf != '\n')
-			return(0);
+			return (0);
 	}
 	return (1);
 }
 
-int ft_max(int a, int b)
+int		ft_max(int a, int b)
 {
 	if (a < b)
 		return (b);
@@ -41,29 +41,27 @@ int ft_max(int a, int b)
 		return (a);
 }
 
-int is_same(char *a, char *b)
+int		is_same(char *a, char *b)
 {
 	if (ft_strncmp(a, b, ft_max(ft_strlen(a), ft_strlen(b))) == 0)
 		return (1);
 	return (0);
 }
 
-int get_argc(char **args)
+int		get_argc(char **args)
 {
 	int count;
 
 	count = 0;
 	while (*args)
 	{
-		// if (**args < 0)
-			// break ;
 		count++;
 		args++;
 	}
 	return (count);
 }
 
-char *char_to_str(char c)
+char	*char_to_str(char c)
 {
 	char *ret;
 

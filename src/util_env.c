@@ -6,16 +6,16 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:44:04 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/18 23:16:27 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/20 11:13:30 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list *make_envs(char **envp)
+t_list		*make_envs(char **envp)
 {
-	t_list *envs;
-	t_env *env;
+	t_list	*envs;
+	t_env	*env;
 
 	envs = 0;
 	while (*envp)
@@ -29,10 +29,10 @@ t_list *make_envs(char **envp)
 	return (envs);
 }
 
-char *get_key(char *str)
+char		*get_key(char *str)
 {
-	int len;
-	char *key;
+	int		len;
+	char	*key;
 
 	len = 0;
 	while (str[len] != '=')
@@ -43,10 +43,10 @@ char *get_key(char *str)
 	return (key);
 }
 
-char *get_value(char *str)
+char		*get_value(char *str)
 {
-	int len;
-	char *value;
+	int		len;
+	char	*value;
 
 	len = 0;
 	while (*str != '=')
@@ -60,15 +60,16 @@ char *get_value(char *str)
 	return (value);
 }
 
-char *find_value(t_list *envs, char *key)
+char		*find_value(t_list *envs, char *key)
 {
-	t_list *curr;
+	t_list	*curr;
 
 	curr = envs;
 	while (curr)
 	{
 		if (ft_strncmp(((t_env *)curr->content)->key, key,
-			ft_max(ft_strlen(((t_env *)curr->content)->key), ft_strlen(key))) == 0)
+			ft_max(ft_strlen(((t_env *)curr->content)->key),
+			ft_strlen(key))) == 0)
 			return (((t_env *)curr->content)->value);
 		curr = curr->next;
 	}

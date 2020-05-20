@@ -10,7 +10,8 @@ SRCS = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
 		ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 		ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c \
 		ft_lstiter.c ft_lstmap.c \
-		get_next_line.c get_next_line_utils.c
+		get_next_line.c get_next_line_utils.c \
+		ft_strjoin_free.c ft_strjoin_s1free.c ft_strjoin_s2free.c
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g3

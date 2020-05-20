@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   ft_strjoin_s2free.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sanam <sanam@studenr.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/12 02:19:55 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 11:14:22 by sanam            ###   ########.fr       */
+/*   Created: 2020/04/30 15:29:04 by sanam             #+#    #+#             */
+/*   Updated: 2020/04/30 15:29:15 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void		sigint_handle(void)
+char			*ft_strjoin_s2free(char *s1, char *s2)
 {
-	ft_putstr_fd("\e[2D\e[0K", 1);
-	ft_putendl_fd("", 1);
-	print_commandline();
-}
+	char		*ret;
 
-void		sigquit_handle(void)
-{
-	ft_putstr_fd("\e[2D\e[0K", 1);
+	ret = ft_strjoin(s1, s2);
+	free(s2);
+	return (ret);
 }

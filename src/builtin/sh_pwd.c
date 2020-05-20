@@ -6,13 +6,13 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 00:17:27 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 12:54:25 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/20 11:07:54 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void sh_pwd(char **args, int fd)
+void		sh_pwd(char **args, int fd)
 {
 	int		argc;
 	char	*cwd;

@@ -13,6 +13,7 @@
 * [x] print_art.c
 * [x] print_commandline.c
 * [x] semicolon.c
+* [x] built_in functions
 
 
 ## we_did

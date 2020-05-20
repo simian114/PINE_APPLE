@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 20:52:28 by gmoon             #+#    #+#             */
-/*   Updated: 2020/04/13 13:40:38 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/20 12:09:44 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ typedef struct		s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+char				*ft_strjoin_free(char *s1, char *s2);
+char				*ft_strjoin_s1free(char *s1, char *s2);
+char				*ft_strjoin_s2free(char *s1, char *s2);
 
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);

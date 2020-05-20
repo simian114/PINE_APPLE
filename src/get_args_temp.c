@@ -6,13 +6,14 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 00:55:32 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 12:35:01 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/19 20:52:00 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
-static int	args_count(char *command)
+static int args_count(char *command)
 {
 	int count;
 	int quote;
@@ -56,7 +57,7 @@ static int	args_count(char *command)
 	return (count);
 }
 
-static int	key_len(char *str)
+static int key_len(char *str)
 {
 	int len;
 
@@ -70,113 +71,98 @@ static int	key_len(char *str)
 	return (len);
 }
 
-static char	*convert_arg_1_1(char **command, char **ret)
+static char *convert_arg(char **command, t_list *envs)
 {
-	int		len;
-
-	len = 0;
-	while (*(*command + len) == '>')
-		len++;
-	free(*ret);
-	if (len < 3)
-		*ret = char_to_str(len * -1);
-	else
-	{
-		ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
-		ft_putstr_fd("parse error near `>'", 2);
-		return (0);
-	}
-	*command += len;
-	return (*ret);
-}
-
-static char	*convert_arg_1_2(char **command, char **ret)
-{
-	int		len;
-
-	len = 0;
-	while (*(*command + len) == '<')
-		len++;
-	free(*ret);
-	if (len == 1)
-		*ret = char_to_str(-3);
-	else
-	{
-		ft_putstr_fd("error in <.\n", 2);
-		return (0);
-	}
-	*command += len;
-	return (*ret);
-}
-
-static char	*convert_arg_1_3(char **command, char **ret)
-{
-	int		len;
-
-	len = 0;
-	while (*(*command + len) == '|')
-		len++;
-	free(*ret);
-	if (len == 1)
-		*ret = char_to_str(-4);
-	else
-	{
-		ft_putstr_fd("error in |.\n", 2);
-		return (0);
-	}
-	*command += len;
-	return (*ret);
-}
-
-static char	*convert_arg_1(char **command, char **ret, int *quote)
-{
-	if (*quote == 0 && **command == '>')
-		return (convert_arg_1_1(command, ret));
-	else if (*quote == 0 && **command == '<')
-		return (convert_arg_1_2(command, ret));
-	else if (*quote == 0 && **command == '|')
-		return (convert_arg_1_3(command, ret));
-	return (*ret);
-}
-
-static char **convert_arg_2(char **command, t_list *envs, int *quote, char **ret)
-{
-	char	*key;
-
-	if (*quote == 0 && (**command == '\'' || **command == '\"'))
-		*quote += **command;
-	else if (*quote != 0 && **command == *quote)
-		*quote -= **command;
-	else if (*quote != '\'' && **command == '$') // 이부분
-	{
-		(*command)++;
-		key = ft_substr(*command, 0, key_len(*command));
-		*ret = ft_strjoin_s1free(*ret, find_value(envs, key));
-		*command += ft_strlen(key) - 1;
-	}
-	else
-		*ret = ft_strjoin_free(*ret, char_to_str(**command));
-	(*command)++;
-	return (command);
-}
-
-static char	*convert_arg(char **command, t_list *envs)
-{
+	char *ret_tmp;
 	char *ret;
 	int quote;
+	char *key;
+	char *to_add;
+	int	len;
 
 	quote = 0;
 	ret = ft_strdup("");
+	ret_tmp = ret;
 	while (**command)
 	{
-		if (quote == 0 && (**command == '>' || ** command == '<' || **command == '|'))
+		if (quote == 0 && **command == '>')
 		{
-			ret = convert_arg_1(command, &ret, &quote);
+			len = 0;
+			while (*(*command + len) == '>')
+				len++;
+			free(ret);
+			// ret = ft_substr(*command, 0, len);
+			if (len == 1)
+				ret = char_to_str(-1);
+			else if (len == 2)
+				ret = char_to_str(-2);
+			else
+			{
+				ft_putstr_fd("error in >.\n", 2); //임시
+				return (0);
+			}
+			*command += len;
 			return (ret);
 		}
-		command = convert_arg_2(command, envs, &quote, &ret);
-		if (quote == 0 && (**command == ' ' || **command == '>'
-			|| **command == '|' || **command == '<'))
+		else if (quote == 0 && **command == '<')
+		{
+			len = 0;
+			while (*(*command + len) == '<')
+				len++;
+			free(ret);
+			// ret = ft_substr(*command, 0, len);
+			if (len == 1)
+				ret = char_to_str(-3);
+			else
+			{
+				ft_putstr_fd("error in <.\n", 2); //임시
+				return (0);
+			}
+			*command += len;
+			return (ret);
+		}
+		else if (quote == 0 && **command == '|')
+		{
+			len = 0;
+			while (*(*command + len) == '|')
+				len++;
+			free(ret);
+			// ret = ft_substr(*command, 0, len);
+			if (len == 1)
+				ret = char_to_str(-4);
+			else
+			{
+				ft_putstr_fd("error in |.\n", 2);
+				return (0);
+			}
+			*command += len;
+			return (ret);
+		}
+		if (quote == 0 && (**command == '\'' || **command == '\"'))
+			quote += **command;
+		else if (quote != 0 && **command == quote)
+			quote -= **command;
+		else if (quote != '\'' && **command == '$') // 이부분
+		{
+			(*command)++;
+			key = ft_substr(*command, 0, key_len(*command));
+			// printf("<%s>\n", key);
+			to_add = find_value(envs, key);
+			ret_tmp = ft_strjoin(ret_tmp, to_add);
+			free(ret);
+			ret = ret_tmp;
+			*command += ft_strlen(key) - 1;
+		}
+		else
+		{
+			to_add = char_to_str(**command);
+			ret_tmp = ft_strjoin(ret_tmp, to_add);
+			free(to_add);
+			free(ret);
+			ret = ret_tmp;
+		}
+		(*command)++;
+		if (quote == 0 && (**command == ' ' || **command == '>' || **command == '|' || **command == '<'))
 			break;
 	}
 	return (ret);
@@ -189,6 +175,7 @@ char **get_args(char *command, t_list *envs)
 	int i;
 
 	count = args_count(command);
+	// printf("count: %d\n", count);
 	args = (char **)malloc(sizeof(char *) * (count + 1));
 	args[count] = 0;
 	i = -1;

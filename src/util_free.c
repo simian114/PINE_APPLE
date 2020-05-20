@@ -6,13 +6,13 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 23:13:15 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 05:26:20 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/20 11:11:30 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void free_double_char(char ***str)
+void	free_double_char(char ***str)
 {
 	char **str_adr;
 
@@ -25,7 +25,7 @@ void free_double_char(char ***str)
 	free(str_adr);
 }
 
-void free_triple_char(char ****cmds)
+void	free_triple_char(char ****cmds)
 {
 	char ***triple_adr;
 	char **double_adr;
@@ -45,7 +45,7 @@ void free_triple_char(char ****cmds)
 	free(triple_adr);
 }
 
-void del(void *content)
+void	del(void *content)
 {
 	t_env *temp;
 
