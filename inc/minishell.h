@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:29:52 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/19 16:35:15 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/20 13:30:24 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int				cmd_switch(char **cmd, t_list *envs, int *wstatus);
 ** exec_line.c
 */
 void			exec_line(char *line, t_list *envs, char **envp, int *wstatus);
-int				check_redirection(char **cmd, int *fd_file);
+// int				check_redirection(char **cmd, int *fd_file);
 
 /*
 ** get_args.c

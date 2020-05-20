@@ -6,13 +6,13 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 13:22:16 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/20 13:30:00 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		redirection_error(int ret)
+static void		redirection_error(int ret)
 {
 	char	temp[2];
 
@@ -30,7 +30,7 @@ void		redirection_error(int ret)
 	exit(-1);
 }
 
-int			check_redirection(char **cmd, int *fd_file)
+static int			check_redirection(char **cmd, int *fd_file)
 {
 	int		ret;
 
@@ -57,7 +57,7 @@ int			check_redirection(char **cmd, int *fd_file)
 	return (ret);
 }
 
-char **get_cmd(char **cmd, int redirection)
+static char **get_cmd(char **cmd, int redirection)
 {
 	char **ret;
 	int size;
@@ -79,7 +79,7 @@ char **get_cmd(char **cmd, int redirection)
 	return (ret);
 }
 
-char **child_process(int fdd, char ***cmds, int fd[2])
+static char **init_fd(int fdd, char ***cmds, int fd[2])
 {
 	int redirection;
 	int fd_file;
@@ -103,6 +103,13 @@ char **child_process(int fdd, char ***cmds, int fd[2])
 	return (get_cmd(*cmds, redirection));
 }
 
+static void parent_process(int *wstatus, int fd[2], int *fdd)
+{
+	wait(wstatus);
+	close(fd[1]);
+	*fdd = fd[0];
+}
+
 static void exec_cmds(char ***cmds, t_list *envs, char **envp, int *wstatus)
 {
 	int fdd;
@@ -120,34 +127,13 @@ static void exec_cmds(char ***cmds, t_list *envs, char **envp, int *wstatus)
 				ft_putstr_fd("pid error.\n", 2);
 			else if (pid == 0)
 			{
-				// dup2(fdd, 0);
-				// if (*(cmds + 1))
-				// 	dup2(fd[1], 1);
-				// redirection = check_redirection(*cmds, &fd_file);
-				// if (fd_file < 0)
-				// {
-				// 	ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
-				// 	ft_putstr_fd(strerror(errno), 2);
-				// 	ft_putstr_fd("\n", 2);
-				// 	exit(1);
-				// }
-				// else if ((redirection == -1 || redirection == -2) && !*(cmds + 1))
-				// 	dup2(fd_file, 1);
-				// else if (redirection == -3)
-				// 	dup2(fd_file, 0);
-				// close(fd[0]);
-				// cmd = get_cmd(*cmds, redirection);
-				cmd = child_process(fdd, cmds, fd);
+				cmd = init_fd(fdd, cmds, fd);
 				fork_cmd_switch(cmd, envs, envp, 1);
 				free_double_char(&cmd);
 				exit(0);
 			}
 			else
-			{
-				wait(wstatus);
-				close(fd[1]);
-				fdd = fd[0];
-			}
+				parent_process(wstatus, fd, &fdd);
 		}
 		cmds++;
 	}
