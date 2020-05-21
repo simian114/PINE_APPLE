@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:29:52 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/21 15:15:40 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/22 01:50:02 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ char			**semicolon_split(char *line);
 /*
 ** signal.c
 */
-void			sigint_handle();
-void			sigquit_handle();
+void			sigint_handle(void);
+void			sigquit_handle(void);
 
 /*
 ** store_status.c
