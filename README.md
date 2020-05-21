@@ -61,11 +61,10 @@ Double Quotes
 - [x] Do not try multiline strings
 
 export
-// export를 인자 없이 했을 때, env와는 차이가 있음. 앞에 declare -x가 붙나?
 - [x] Export environment variables, create new ones and replace old ones
 - [x] Check them with env
 
 Environment Path
 - [x] Execute commands but this time without any path. (ls, wc, awk etc...)
 - [x] Unset the $PATH and check if it is not working anymore
-- [ ] Set the $PATH to a multiple directory value (directory1:directory2) and check that directories are checked in order from left to right
+- [x] Set the $PATH to a multiple directory value (directory1:directory2) and check that directories are checked in order from left to right
