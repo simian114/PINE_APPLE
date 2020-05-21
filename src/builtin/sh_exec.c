@@ -6,26 +6,34 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 02:20:53 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/21 12:52:50 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/21 15:10:05 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	exec_fork(char *program, char **argv, char **envp)
+//static int	exec_fork(char *program, char **argv, char **envp)
+//{
+//	int		pid;
+//	int		status;
+//
+//	status = 0;
+//	pid = fork();
+//	if (pid == 0)
+//	{
+//		if (execve(program, argv, envp) == -1)
+//			return (-1);
+//	}
+//	else if (pid > 0)
+//		wait(&status);
+//	return (status);
+//}
+
+static int		exec_fork(char *program, char **argv, char **envp)
 {
-	int		pid;
 	int		status;
 
-	status = 0;
-	pid = fork();
-	if (pid == 0)
-	{
-		if (execve(program, argv, envp) == -1)
-			return (-1);
-	}
-	else if (pid > 0)
-		wait(&status);
+	status = execve(program, argv, envp);
 	return (status);
 }
 
