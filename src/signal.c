@@ -6,44 +6,32 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 02:19:55 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/21 12:07:01 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/21 16:14:07 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
 void		sigint_handle(void)
 {
-	int		pid;
+	int		ppid;
+	char	*cwd;
 
-	pid = getpid();
-	if (pid == g_core)
-	{
-		ft_putstr_fd("\e[2D\e[0K", 1);
-		ft_putendl_fd("", 1);
-		print_commandline();
-	}
+	ppid = getppid();
+	if (ppid == g_core)
+		exit(1);
 	else
 	{
-		exit(1);
+		g_intt = 1;
+		ft_putendl_fd(" ", 1);
+		cwd = getcwd(0, 1024);
+		ft_putstr_fd("\033[36m\033[3m\033[01m", 1);
+		ft_putstr_fd(ft_strrchr(cwd, '/') + 1, 1);
+		ft_putstr_fd("\033[35m", 1);
+		ft_putstr_fd(" >> ", 1);
+		ft_putstr_fd("\033[0m", 1);
+		free(cwd);
 	}
-//	int		current;
-//
-//	current = getpid();
-//	if (g_core != current)
-//	{
-//		printf("current : %d\n", current);
-//		ft_putstr_fd("", 1);
-//		signal(SIGINT, SIG_IGN);
-//	}
-//	if (g_core == current)
-//	{
-//		printf("parrent : %d\n", g_core);
-//		ft_putstr_fd("\e[2D\e[0K", 1);
-//		ft_putendl_fd("", 1);
-//		print_commandline();
-//	}
 }
 
 void		sigquit_handle(void)
