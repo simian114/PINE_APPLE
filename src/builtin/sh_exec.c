@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 02:20:53 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/22 01:43:09 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/22 01:56:47 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static void	exec_path(t_list *envs, char **args, char **envp)
 	char	*env_path;
 	char	*env_path_adr;
 	char	*path;
-	char	*program;
 	int		ret;
 
 	env_path = ft_strdup(find_value(envs, "PATH"));
@@ -43,10 +42,10 @@ static void	exec_path(t_list *envs, char **args, char **envp)
 			env_path++;
 		path = ft_substr(env_path, 0, path_len(env_path));
 		env_path += path_len(env_path);
-		program = ft_strjoin_free(path, char_to_str('/'));
-		program = ft_strjoin_s1free(program, *args);
-		ret = execve(program, args, envp);
-		free(program);
+		path = ft_strjoin_free(path, char_to_str('/'));
+		path = ft_strjoin_s1free(path, *args);
+		ret = execve(path, args, envp);
+		free(path);
 		if (ret >= 0)
 			exit(0);
 	}
