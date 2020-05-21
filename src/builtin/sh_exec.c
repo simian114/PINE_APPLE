@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 02:20:53 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 10:47:42 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/21 10:41:15 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static int	exec_fork(char **argv, char **envp)
 {
-	int pid;
+	int		pid;
+	int		status;
 
 	pid = fork();
 	if (pid == 0)
@@ -23,13 +24,16 @@ static int	exec_fork(char **argv, char **envp)
 			return (-1);
 	}
 	else if (pid > 0)
-		wait(0);
-	return (0);
+		wait(&status);
+	return (status);
 }
 
 void		sh_exec(char **args, char **envp)
 {
-	if (exec_fork(args, envp) == -1)
+	int		ret;
+
+	ret = exec_fork(args, envp);
+	if (ret == -1)
 	{
 		ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
 		ft_putstr_fd(strerror(errno), 2);
@@ -37,5 +41,7 @@ void		sh_exec(char **args, char **envp)
 		ft_putendl_fd(*args, 2);
 		exit(1);
 	}
+	else if (ret != -1 && ret != 0)
+		exit(1);
 	exit(0);
 }
