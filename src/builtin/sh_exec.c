@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 02:20:53 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/21 12:52:50 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/21 13:10:53 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	exec_fork(char *program, char **argv, char **envp)
 	if (pid == 0)
 	{
 		if (execve(program, argv, envp) == -1)
-			return (-1);
+			return (-1); // 이게 어떻게 쓰이는거지? 어떻게 리턴되는거지? 헷갈리네.
 	}
 	else if (pid > 0)
 		wait(&status);
@@ -55,6 +55,7 @@ void		sh_exec(char **args, char **envp, t_list *envs)
 	if (ft_strncmp(*args, "/", 1) == 0 || ft_strncmp(*args, ".", 1) == 0)
 	{
 		ret = exec_fork(args[0], args, envp);
+		printf("ret: %d\n", ret);
 		if (ret == -1)
 		{
 			ft_putstr_fd("\033[3m\033[31mPINE_APPLE:\033[0m ", 2);
@@ -77,8 +78,9 @@ void		sh_exec(char **args, char **envp, t_list *envs)
 				program_tmp = ft_strjoin_free(path, char_to_str('/'));
 				program = ft_strjoin_s1free(program_tmp, *args);
 				ret = exec_fork(program, args, envp);
+				printf("ret: %d [%s]\n", ret, program);
 				free(program);
-				if (ret >= 0)
+				if (ret >= 0) // 이거도 정확히 모르겠음.
 					exit(0);
 			}
 			free(env_path);
