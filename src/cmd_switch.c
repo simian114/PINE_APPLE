@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 22:44:14 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/21 07:02:27 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/21 11:28:50 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		cmd_switch(char **cmd, t_list *envs, int *wstatus)
 	if (is_same(*cmd, "exit"))
 		exit(0);
 	else if (is_same(*cmd, "cd") || is_same(*cmd, "unset") ||
-			(is_same(*cmd, "export") && *(cmd + 1) && **(cmd + 1) > 0))
+			(is_same(*cmd, "export") && *(cmd + 1)))
 	{
 		temp = handling_redirection(cmd, &file);
 		if (handling_redirection_2(temp, wstatus, file))
@@ -102,9 +102,10 @@ void	fork_cmd_switch(char **cmd, t_list *envs, char **envp, int fd)
 		sh_clear(cmd, fd);
 	else if (is_same(*cmd, "export"))
 		sh_env(cmd, envs, fd);
-	else if (ft_strncmp(*cmd, ".", 1) == 0
-			|| ft_strncmp(*cmd, "/", 1) == 0)
-		sh_exec(cmd, envp);
+	// else if (ft_strncmp(*cmd, ".", 1) == 0
+			// || ft_strncmp(*cmd, "/", 1) == 0)
 	else
-		cmd_error(cmd[0]);
+		sh_exec(cmd, envp, envs);
+	// else
+		// cmd_error(cmd[0]);
 }

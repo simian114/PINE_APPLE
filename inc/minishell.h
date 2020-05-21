@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:29:52 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/20 14:12:56 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/21 11:40:12 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void			sh_cd(char **args, t_list *envs, int *wstatus);
 void			sh_clear(char **args, int fd);
 void			sh_echo(char **args, int fd);
 void			sh_env(char **args, t_list *envs, int fd);
-void			sh_exec(char **args, char **envp);
+void			sh_exec(char **args, char **envp, t_list *envs);
 void			sh_export(char **args, t_list *envs);
 void			sh_ls(int fd);
 void			sh_pwd(char **args, int fd);

@@ -43,11 +43,6 @@
 * [x] signal 처리
 
 ### 2020. 05. 21
-Return value of a process
-- [x] Execute a simple command with absolute path like /bin/ls or any other command with arguments but without quotes and double quotes then execute echo $?
-- [x] Check the printed value. You can repeat the same in bash and compare it.
-- [ ] Repeat multiple times with different commands and arguments, use some failing commands like '/bin/ls filethatdoesntexist'
-
 Signals
 - Try ctrl-C in an empty prompt
 - Try ctrl-\ in an empty prompt
@@ -72,5 +67,5 @@ export
 
 Environment Path
 - [x] Execute commands but this time without any path. (ls, wc, awk etc...)
-- [ ] Unset the $PATH and check if it is not working anymore
+- [x] Unset the $PATH and check if it is not working anymore
 - [ ] Set the $PATH to a multiple directory value (directory1:directory2) and check that directories are checked in order from left to right
