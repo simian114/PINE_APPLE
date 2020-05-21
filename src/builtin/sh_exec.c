@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 02:20:53 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/21 10:41:15 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/21 10:47:36 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	exec_fork(char **argv, char **envp)
 	int		pid;
 	int		status;
 
+	status = 0;
 	pid = fork();
 	if (pid == 0)
 	{
@@ -43,5 +44,7 @@ void		sh_exec(char **args, char **envp)
 	}
 	else if (ret != -1 && ret != 0)
 		exit(1);
+	else
+		exit(0);
 	exit(0);
 }
