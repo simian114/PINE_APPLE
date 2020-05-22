@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:29:52 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/22 11:56:44 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/22 16:39:25 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct	s_env
 }				t_env;
 
 int				g_core;
-int				g_intt;
 
 /*
 ** builtins
