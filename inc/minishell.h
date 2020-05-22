@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:29:52 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/22 16:39:25 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/22 22:13:44 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_env
 }				t_env;
 
 int				g_core;
+int				g_option;
 
 /*
 ** builtins
@@ -108,6 +109,11 @@ void			sigquit_handle(int signo);
 void			store_status(t_list *envs, int *wstatus);
 
 /*
+** get_line.c
+*/
+int				get_line(char **line);
+
+/*
 ** util_env.c
 */
 t_list			*make_envs(char **envp);
@@ -125,7 +131,6 @@ void			del(void *content);
 /*
 ** util.c
 */
-int				get_line(char **line);
 int				ft_max(int a, int b);
 int				is_same(char *a, char *b);
 int				get_argc(char **args);

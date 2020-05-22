@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:50:17 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/22 18:55:22 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/22 21:51:32 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	int		wstatus;
 
 	wstatus = 0;
+	g_option = 0;
 	g_core = getpid();
 	if (!argc && argv)
 		exit(1);

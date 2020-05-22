@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 00:10:11 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/22 16:13:14 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/22 21:56:32 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,13 @@ int			print_commandline(void)
 	char	*cwd;
 
 	cwd = getcwd(0, 1024);
-	ft_putstr_fd("\e[0G\033[36m\033[3m\033[01m", 1);
+	if (g_option == 1)
+	{
+		ft_putstr_fd("\e[0G\033[36m\033[3m\033[01m", 1);
+		g_option = 0;
+	}
+	else
+		ft_putstr_fd("\033[36m\033[3m\033[01m", 1);
 	ft_putstr_fd(ft_strrchr(cwd, '/') + 1, 1);
 	ft_putstr_fd("\033[35m", 1);
 	ft_putstr_fd(" >> ", 1);
