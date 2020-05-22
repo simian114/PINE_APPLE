@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_arg.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanam <sanam@studenr.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 13:44:18 by sanam             #+#    #+#             */
-/*   Updated: 2020/05/20 13:51:46 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/22 21:21:08 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ char	**convert_arg_2(char **command, t_list *envs,
 		*ret = ft_strjoin_s1free(*ret, find_value(envs, key));
 		*command += ft_strlen(key) - 1;
 	}
+	else if (**command < -20)
+		*ret = ft_strjoin_free(*ret, char_to_str(**command * -1));
 	else
 		*ret = ft_strjoin_free(*ret, char_to_str(**command));
 	(*command)++;

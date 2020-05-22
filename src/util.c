@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:39:20 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/22 21:01:21 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/22 21:23:39 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,14 @@ int		escape(char **line, int *quote)
 	ft_bzero(buf, 3);
 	*buf = '\\';
 	read(0, buf + 1, 1);
+	if (buf[1] == '>' || buf[1] == '<' || buf[1] == '|' || buf[1] == '$' || buf[1] == '\"')
+		buf[1] *= -1;
 	if (*quote == '\'')
 		*line = ft_strjoin_s1free(*line, buf);
 	else if (*quote == '\"')
 	{
-		if (buf[1] == '$' || buf[1] == '`' || buf[1] == '"' || buf[1] == '\\')
-		{
-			if (buf[1] == '$')
-				buf[1] = -20;
+		if (buf[1] == -1 * '$' || buf[1] == '`' || buf[1] == -1 * '\"' || buf[1] == '\\')
 			*line = ft_strjoin_s1free(*line, buf + 1);
-		}
 		else
 			*line = ft_strjoin_s1free(*line, buf);
 	}
