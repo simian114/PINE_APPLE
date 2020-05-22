@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 02:20:53 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/22 01:56:47 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/22 16:14:22 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,11 @@ static void	exec_path(t_list *envs, char **args, char **envp)
 		env_path += path_len(env_path);
 		path = ft_strjoin_free(path, char_to_str('/'));
 		path = ft_strjoin_s1free(path, *args);
+		// 성공할 때 까지 계속 반복....
 		ret = execve(path, args, envp);
 		free(path);
+		// 아래 부분은 필요 없음. execve가 성공하면 어차피 그 프로세스는
+		// execve로 대체 되기 때문에 이 아랫 단은 없는거나 다름없음.
 		if (ret >= 0)
 			exit(0);
 	}
