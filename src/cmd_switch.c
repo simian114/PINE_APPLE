@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 22:44:14 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/21 11:28:50 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/23 23:56:24 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,6 @@ void	fork_cmd_switch(char **cmd, t_list *envs, char **envp, int fd)
 		sh_clear(cmd, fd);
 	else if (is_same(*cmd, "export"))
 		sh_env(cmd, envs, fd);
-	// else if (ft_strncmp(*cmd, ".", 1) == 0
-			// || ft_strncmp(*cmd, "/", 1) == 0)
 	else
 		sh_exec(cmd, envp, envs);
-	// else
-		// cmd_error(cmd[0]);
 }
