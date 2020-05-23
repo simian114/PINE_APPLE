@@ -43,28 +43,7 @@
 * [x] signal 처리
 
 ### 2020. 05. 21
-Signals
-- Try ctrl-C in an empty prompt
-- Try ctrl-\ in an empty prompt
-- Try ctrl-D in an empty prompt
-- Try ctrl-C in a prompt after you wrote some stuff
-- Try ctrl-D in a prompt after you wrote some stuff
-- Try ctrl-\ in a prompt after you wrote some stuff
-- Try ctrl-C after running a blocking command like cat or grep without arguments
-- Try ctrl-\ after running a blocking command like cat or grep without arguments
-- Try ctrl-D after running a blocking command like cat or grep without arguments
-- Repeat multiple times with different commands
-
-Double Quotes
-- [x] Execute a simple command with absolute path with arguments but this time double quotes (you should include whitespaces and semicolons in the quotes)
-- [ ] Think about empty arguments or a weird use of '\'
-- [x] Do not try multiline strings
-
-export
-- [x] Export environment variables, create new ones and replace old ones
-- [x] Check them with env
-
-Environment Path
-- [x] Execute commands but this time without any path. (ls, wc, awk etc...)
-- [x] Unset the $PATH and check if it is not working anymore
-- [x] Set the $PATH to a multiple directory value (directory1:directory2) and check that directories are checked in order from left to right
+* [x] Signals
+* [x] Double Quotes
+* [x] export
+* [x] Environment Path

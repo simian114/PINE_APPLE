@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 19:36:42 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/21 15:34:33 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/23 23:46:34 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	**init_fd(int fdd, char ***cmds, int fd[2])
 		ft_putstr_fd("\n", 2);
 		exit(1);
 	}
-	else if ((redirection == -1 || redirection == -2) && !*(cmds + 1))
+	else if (redirection == -1 || redirection == -2)
 		dup2(fd_file, 1);
 	else if (redirection == -3)
 		dup2(fd_file, 0);
