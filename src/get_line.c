@@ -6,7 +6,7 @@
 /*   By: sanam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/22 22:08:48 by sanam             #+#    #+#             */
-/*   Updated: 2020/05/22 22:15:25 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/24 03:54:58 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int				get_line(char **line)
 	ft_bzero(buf, 2);
 	*line = ft_strdup("");
 	quote = 0;
+	print_commandline();
 	while (*buf != '\n')
 	{
 		while (read(0, buf, 1) && *buf != '\n')

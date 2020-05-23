@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:40:38 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/22 22:02:03 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/24 03:08:24 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	sh_echo(char **args, int fd)
 	if (is_same(*args, "-n"))
 	{
 		option_n = 1;
-		g_option = 1;
 		args++;
 		argc--;
 	}

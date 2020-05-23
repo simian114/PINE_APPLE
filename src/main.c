@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 18:50:17 by gmoon             #+#    #+#             */
-/*   Updated: 2020/05/22 21:51:32 by sanam            ###   ########.fr       */
+/*   Updated: 2020/05/24 03:56:14 by sanam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	main(int argc, char **argv, char **envp)
 	int		wstatus;
 
 	wstatus = 0;
-	g_option = 0;
 	g_core = getpid();
 	if (!argc && argv)
 		exit(1);
@@ -27,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, sigint_handle);
 	signal(SIGQUIT, sigquit_handle);
 	envs = make_envs(envp);
-	while ((print_commandline() && get_line(&line)) || (wstatus = 0))
+	while ((get_line(&line)) || (wstatus = 0))
 		exec_line(line, envs, envp, &wstatus);
 	free(line);
 	ft_lstclear(&envs, del);
