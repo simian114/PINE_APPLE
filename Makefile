@@ -6,7 +6,7 @@
 #    By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/11 21:00:54 by gmoon             #+#    #+#              #
-#    Updated: 2020/05/22 22:15:01 by sanam            ###   ########.fr        #
+#    Updated: 2020/05/24 23:10:08 by sanam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRC =	check_redirection.c \
 		builtin/sh_export.c \
 		builtin/sh_ls.c \
 		builtin/sh_pwd.c \
-		builtin/sh_unset.c
+		builtin/sh_unset.c \
+		builtin/sh_exit.c
 OBJ = $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 CC = gcc
