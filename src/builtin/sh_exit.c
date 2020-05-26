@@ -6,7 +6,7 @@
 /*   By: gmoon <gmoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 22:38:45 by sanam             #+#    #+#             */
-/*   Updated: 2020/05/26 09:15:20 by gmoon            ###   ########.fr       */
+/*   Updated: 2020/05/27 06:49:59 by gmoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			check_numeric(char *cmd)
 	}
 	return (0);
 }
-#include <stdio.h>
+
 int			sh_exit(char **cmd)
 {
 	int		i;
@@ -35,18 +35,35 @@ int			sh_exit(char **cmd)
 	ft_putendl_fd("exit", 2);
 	if (i == 1)
 		exit(0);
-	else if (i == 2)
-	{
-		if (check_numeric(cmd[1]) == 0)
-			exit(ft_atoi(cmd[1]));
-		else
-		{
-			ft_putendl_fd("bash: exit: numeric argument required", 2);
-			exit(2);
-		}
-	}
+	else if (i == 2 && check_numeric(cmd[1]) == 0)
+		exit(ft_atoi(cmd[1]));
+	else if (i > 2 && check_numeric(cmd[1]) == 0)
+		ft_putstr_fd("bash: exit: too many arguments\n", 2);
 	else
-		ft_putendl_fd("bash: exit: too many arguments", 2);
+	{
+		ft_putstr_fd("bash: exit: numeric argument required\n", 2);
+		exit(2);
+	}
+
+	
+	// else if (i == 2)
+	// {
+	// 	if (check_numeric(cmd[1]) == 0)
+	// 		exit(ft_atoi(cmd[1]));
+	// 	else
+	// 	{
+	// 		ft_putendl_fd("bash: exit: numeric argument required", 2);
+	// 		exit(2);
+	// 	}
+	// }
+	// else
+	// {
+	// 	while (cmd[i])
+	// 	if (check_numeric(cmd))
+	// }
+	// 	ft_putendl_fd("bash: exit: too many arguments", 2);
+
+
 	// if (i == 1)
 	// 	exit(0);
 	// else if (i > 2)
@@ -71,5 +88,6 @@ int			sh_exit(char **cmd)
 	// 		exit(ft_atoi(cmd[1]));
 	// }
 	// exit(i);
+
 	return (1);
 }
