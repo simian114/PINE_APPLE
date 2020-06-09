@@ -6,6 +6,10 @@
 ![GIF](GIF.gif)
 -----
 
-## 왜 탭, 화살표 등은 입력이 안될까?
-이 부분을 해결하기 위해서는 termcap 라이브러리를 사용해야한다.  
-[여기를 보자](https://github.com/simian114/minishell_with_termcap)
+## 문제점
+
+### 1. 탭, 화살표 등의 입력이 먹히지 않음
+
+### 2. 시그널 처리 미흡
+
+[여기서 해결](https://github.com/simian114/minishell_with_termcap)
